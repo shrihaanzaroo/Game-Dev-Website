@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Users, MapPin } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
+import { useMemberCount } from "@/hooks/useMemberCount";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 24 },
@@ -51,6 +52,8 @@ export default function Home() {
   useEffect(() => {
     document.documentElement.classList.remove("dark");
   }, []);
+
+  const { count: liveMembers, loading: membersLoading } = useMemberCount();
 
   return (
     <div
@@ -141,21 +144,32 @@ export default function Home() {
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
               className="flex justify-center gap-6 md:gap-10 mb-14"
             >
-              {STATS.map(({ label, value, suffix, gradient, floatDelay }) => (
-                <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
-                  <motion.div
-                    className={`w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient} shadow-xl`}
-                    animate={{ y: [0, -12, 0] }}
-                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: floatDelay }}
-                    style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.15)" }}
-                  >
-                    <span className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-sm">
-                      <AnimatedCounter target={value} suffix={suffix} />
-                    </span>
+              {STATS.map(({ label, value, suffix, gradient, floatDelay }) => {
+                const resolvedValue = label === "Members" && liveMembers !== null
+                  ? liveMembers
+                  : value;
+                const resolvedSuffix = label === "Members" && liveMembers !== null ? "" : suffix;
+
+                return (
+                  <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
+                    <motion.div
+                      className={`w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient} shadow-xl`}
+                      animate={{ y: [0, -12, 0] }}
+                      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: floatDelay }}
+                      style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.15)" }}
+                    >
+                      {label === "Members" && membersLoading ? (
+                        <span className="text-white text-2xl font-bold opacity-60">…</span>
+                      ) : (
+                        <span className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-sm">
+                          <AnimatedCounter target={resolvedValue} suffix={resolvedSuffix} />
+                        </span>
+                      )}
+                    </motion.div>
+                    <span className="text-sm font-bold uppercase tracking-widest text-slate-500">{label}</span>
                   </motion.div>
-                  <span className="text-sm font-bold uppercase tracking-widest text-slate-500">{label}</span>
-                </motion.div>
-              ))}
+                );
+              })}
             </motion.div>
 
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
