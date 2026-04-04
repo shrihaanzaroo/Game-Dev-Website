@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight, Gamepad2, Star } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
+import { useMeetingCount } from "@/hooks/useMeetingCount";
 import clubLogo from "@assets/gamedev_1775281169605.png";
 
 /* ─── Animation variants ─── */
@@ -55,6 +56,7 @@ const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 export default function Home() {
   useEffect(() => { document.documentElement.classList.remove("dark"); }, []);
   const { count: liveMembers, loading: membersLoading } = useMemberCount();
+  const { count: liveMeetings, loading: meetingsLoading } = useMeetingCount();
 
   return (
     <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
@@ -161,8 +163,17 @@ export default function Home() {
               className="flex justify-center gap-8 md:gap-14 mb-16"
             >
               {STATS.map(({ label, value, suffix, textGradient, ring, glow, floatDelay }) => {
-                const resolved = label === "Members" && liveMembers !== null ? liveMembers : value;
-                const sfx = label === "Members" && liveMembers !== null ? "" : suffix;
+                const resolved =
+                  label === "Members" && liveMembers !== null ? liveMembers :
+                  label === "Meetings" && liveMeetings !== null ? liveMeetings :
+                  value;
+                const sfx =
+                  (label === "Members" && liveMembers !== null) ||
+                  (label === "Meetings" && liveMeetings !== null)
+                    ? "" : suffix;
+                const isLoading =
+                  (label === "Members" && membersLoading) ||
+                  (label === "Meetings" && meetingsLoading);
                 return (
                   <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
                     <div className="relative">
@@ -181,7 +192,7 @@ export default function Home() {
                           boxShadow: `0 8px 32px ${glow}, inset 0 1px 0 rgba(255,255,255,0.9)`,
                         }}
                       >
-                        {label === "Members" && membersLoading
+                        {isLoading
                           ? <span className="text-2xl font-bold text-slate-400">…</span>
                           : <span className="text-3xl md:text-4xl font-black tracking-tighter"
                               style={{ background: textGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
