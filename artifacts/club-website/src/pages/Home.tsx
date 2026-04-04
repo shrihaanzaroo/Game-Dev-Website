@@ -112,46 +112,46 @@ export default function Home() {
         {/* ── CONTENT ── */}
         <main className="flex-1 w-full max-w-5xl mx-auto px-5 pt-14 pb-20">
 
-          {/* Hero */}
-          <motion.div initial="hidden" animate="visible" variants={FADE_UP}
-            className="flex flex-col items-center text-center mb-16"
-          >
-            {/* Logo pill */}
-            <motion.div className="mb-7 relative"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
-                style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.4),rgba(16,185,129,0.4))" }} />
-              <div className="relative p-3 rounded-3xl flex items-center justify-center w-[120px] h-[120px]"
-                style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.15)", boxShadow: "0 8px 40px rgba(59,130,246,0.2)" }}
-              >
-                <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-28 h-28 object-contain" />
-              </div>
-            </motion.div>
-
-            {/* Pill label */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
-              style={{ background: "rgba(96,165,250,0.12)", border: "1px solid rgba(96,165,250,0.25)", color: "#93c5fd" }}
-            >
-              <Star className="w-3 h-3 fill-current" />
-              Los Altos High School
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
-              <span style={{ background: "linear-gradient(100deg,#60a5fa 0%,#34d399 60%,#a78bfa 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Game Dev
-              </span>{" "}
-              <span className="text-white">Club</span>
-            </h1>
-
-            <p className="text-slate-400 text-lg md:text-xl max-w-md leading-relaxed">
-              Building real games, real skills, and real friendships — together.
-            </p>
-          </motion.div>
-
           {/* ── TAB: Overview ── */}
           <TabsContent value="overview" className="mt-0 outline-none">
+
+            {/* Hero */}
+            <motion.div initial="hidden" animate="visible" variants={FADE_UP}
+              className="flex flex-col items-center text-center mb-16"
+            >
+              {/* Logo pill */}
+              <motion.div className="mb-7 relative"
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
+                  style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.4),rgba(16,185,129,0.4))" }} />
+                <div className="relative p-3 rounded-3xl flex items-center justify-center w-[120px] h-[120px]"
+                  style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.15)", boxShadow: "0 8px 40px rgba(59,130,246,0.2)" }}
+                >
+                  <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-28 h-28 object-contain" />
+                </div>
+              </motion.div>
+
+              {/* Pill label */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
+                style={{ background: "rgba(96,165,250,0.12)", border: "1px solid rgba(96,165,250,0.25)", color: "#93c5fd" }}
+              >
+                <Star className="w-3 h-3 fill-current" />
+                Los Altos High School
+              </div>
+
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
+                <span style={{ background: "linear-gradient(100deg,#60a5fa 0%,#34d399 60%,#a78bfa 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  Game Dev
+                </span>{" "}
+                <span className="text-white">Club</span>
+              </h1>
+
+              <p className="text-slate-400 text-lg md:text-xl max-w-md leading-relaxed">
+                Building real games, real skills, and real friendships — together.
+              </p>
+            </motion.div>
 
             {/* Floating stat circles */}
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
