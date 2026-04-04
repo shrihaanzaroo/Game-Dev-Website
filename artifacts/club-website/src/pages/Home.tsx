@@ -224,19 +224,6 @@ export default function Home() {
             variants={FADE_UP}
             className="flex flex-col items-center text-center mb-16"
           >
-            {/* Logo */}
-            <motion.div
-              className="mb-7 relative w-40 h-40"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <img
-                src={`${import.meta.env.BASE_URL}lahs-logo.png`}
-                alt="LAHS Game Dev Club Logo"
-                className="w-full h-full object-contain"
-              />
-            </motion.div>
-
             {/* Pill label */}
             <div
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
