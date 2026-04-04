@@ -113,8 +113,6 @@ export default function Home() {
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
-                style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.3),rgba(16,185,129,0.3))" }} />
               <div className="relative p-3 rounded-3xl"
                 style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
               >
