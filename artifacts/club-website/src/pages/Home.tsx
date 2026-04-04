@@ -224,6 +224,15 @@ export default function Home() {
             variants={FADE_UP}
             className="flex flex-col items-center text-center mb-16"
           >
+            <motion.img
+              src={`${import.meta.env.BASE_URL}lahs-logo.png`}
+              alt="LAHS Game Dev Club Logo"
+              className="w-64 h-64 md:w-80 md:h-80 object-contain mb-4"
+              style={{ mixBlendMode: "multiply" }}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            />
+
             {/* Pill label */}
             <div
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
