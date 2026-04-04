@@ -30,22 +30,22 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
 /* ─── Static data ─── */
 const STATS = [
-  { label: "Members",  value: 25, suffix: "+", gradient: "from-blue-500 via-blue-500 to-indigo-600",    glow: "rgba(99,102,241,0.35)",   floatDelay: 0   },
-  { label: "Meetings", value: 4,  suffix: "",  gradient: "from-emerald-400 via-teal-500 to-cyan-500",   glow: "rgba(20,184,166,0.35)",   floatDelay: 0.7 },
-  { label: "Projects", value: 0,  suffix: "",  gradient: "from-violet-500 via-purple-500 to-fuchsia-500", glow: "rgba(168,85,247,0.35)", floatDelay: 1.4 },
+  { label: "Members",  value: 25, suffix: "+", gradient: "from-[#4a7fd4] to-[#3b6abf]",  glow: "rgba(75,127,212,0.2)",  floatDelay: 0   },
+  { label: "Meetings", value: 4,  suffix: "",  gradient: "from-[#3a9e88] to-[#2d8a72]",  glow: "rgba(45,138,114,0.2)", floatDelay: 0.7 },
+  { label: "Projects", value: 0,  suffix: "",  gradient: "from-[#8b6ed4] to-[#7559bf]",  glow: "rgba(139,110,212,0.2)", floatDelay: 1.4 },
 ];
 
 const MEMBERS = [
-  { role: "President",      name: "Justin Ding",    initials: "JD", from: "#3b82f6", to: "#1d4ed8" },
-  { role: "Vice President", name: "Shrihaan Zaroo",  initials: "SZ", from: "#10b981", to: "#047857" },
-  { role: "Secretary",      name: "William Xing",    initials: "WX", from: "#8b5cf6", to: "#6d28d9" },
-  { role: "Secretary",      name: "Alan Tang",       initials: "AT", from: "#8b5cf6", to: "#6d28d9" },
+  { role: "President",      name: "Justin Ding",    initials: "JD", from: "#4a7fd4", to: "#3562b0" },
+  { role: "Vice President", name: "Shrihaan Zaroo",  initials: "SZ", from: "#3a9e88", to: "#2c7a68" },
+  { role: "Secretary",      name: "William Xing",    initials: "WX", from: "#8b6ed4", to: "#6c52b0" },
+  { role: "Secretary",      name: "Alan Tang",       initials: "AT", from: "#8b6ed4", to: "#6c52b0" },
 ];
 
 const INFO_ROWS = [
-  { icon: <Calendar className="w-4 h-4" />, label: "Every Wednesday at lunch", sub: "Weekly meetings", color: "#10b981" },
-  { icon: <MapPin    className="w-4 h-4" />, label: "Room 923",                 sub: "Location",       color: "#8b5cf6" },
-  { icon: <Gamepad2  className="w-4 h-4" />, label: "Unity · Art · Design",     sub: "We cover",       color: "#3b82f6" },
+  { icon: <Calendar className="w-4 h-4" />, label: "Every Wednesday at lunch", sub: "Weekly meetings", color: "#3a9e88" },
+  { icon: <MapPin    className="w-4 h-4" />, label: "Room 923",                 sub: "Location",       color: "#8b6ed4" },
+  { icon: <Gamepad2  className="w-4 h-4" />, label: "Unity · Art · Design",     sub: "We cover",       color: "#4a7fd4" },
 ];
 
 /* ─── Dot-grid SVG background ─── */
@@ -57,24 +57,24 @@ export default function Home() {
 
   return (
     <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
-      style={{ background: "linear-gradient(150deg,#e0effe 0%,#f0f7ff 35%,#f4fdf6 70%,#e8faf0 100%)" }}
+      style={{ background: "linear-gradient(150deg,#f1f5f9 0%,#f8fafc 40%,#f1f5f9 100%)" }}
     >
       {/* Dot grid texture */}
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: DOT_GRID }} />
 
-      {/* Ambient orbs */}
+      {/* Ambient orbs — toned way down */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%)" }} />
       <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.14) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 70%)" }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%)" }} />
 
       <Tabs defaultValue="overview" className="flex flex-col flex-1 z-10 relative">
 
         {/* ── NAV ── */}
         <header className="sticky top-0 z-50 w-full"
-          style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(20px) saturate(180%)", borderBottom: "1px solid rgba(148,163,184,0.15)", boxShadow: "0 1px 40px rgba(15,23,42,0.06)" }}
+          style={{ background: "rgba(248,250,252,0.75)", backdropFilter: "blur(20px) saturate(150%)", borderBottom: "1px solid rgba(148,163,184,0.12)", boxShadow: "0 1px 24px rgba(15,23,42,0.05)" }}
         >
           <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -82,8 +82,8 @@ export default function Home() {
                 <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="Logo" className="w-8 h-8 object-contain" />
               </div>
               <span className="font-black text-base tracking-tight">
-                <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
-                <span className="text-slate-700"> Club</span>
+                <span style={{ background: "linear-gradient(90deg,#3b6fd4,#4a9eb5)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
+                <span className="text-slate-600"> Club</span>
               </span>
             </div>
 
@@ -114,7 +114,7 @@ export default function Home() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
               <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
-                style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.3),rgba(16,185,129,0.3))" }} />
+                style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.12),rgba(16,185,129,0.12))" }} />
               <div className="relative p-3 rounded-3xl"
                 style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
               >
@@ -124,20 +124,20 @@ export default function Home() {
 
             {/* Pill label */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
-              style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", color: "#2563eb" }}
+              style={{ background: "rgba(100,116,139,0.07)", border: "1px solid rgba(100,116,139,0.15)", color: "#64748b" }}
             >
               <Star className="w-3 h-3 fill-current" />
               Los Altos High School
             </div>
 
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
-              <span style={{ background: "linear-gradient(100deg,#2563eb 0%,#06b6d4 50%,#10b981 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              <span style={{ background: "linear-gradient(100deg,#3b6fd4 0%,#4a9eb5 60%,#38a169 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                 Game Dev
               </span>{" "}
-              <span className="text-slate-800">Club</span>
+              <span className="text-slate-700">Club</span>
             </h1>
 
-            <p className="text-slate-500 text-lg md:text-xl max-w-md leading-relaxed">
+            <p className="text-slate-400 text-lg md:text-xl max-w-md leading-relaxed">
               Building real games, real skills, and real friendships — together.
             </p>
           </motion.div>
@@ -184,7 +184,7 @@ export default function Home() {
                 style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 32px rgba(15,23,42,0.07)" }}
               >
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Mission</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Mission</p>
                   <h2 className="text-2xl md:text-3xl font-black text-slate-800 leading-tight mb-4">
                     Build Real Games.<br />Build Real Skills.
                   </h2>
@@ -194,8 +194,8 @@ export default function Home() {
                 </div>
                 <div className="flex flex-wrap gap-3">
                   <Button size="lg" asChild
-                    className="h-11 px-7 rounded-2xl font-bold text-white border-0 shadow-lg shadow-blue-200 hover:scale-105 active:scale-100 transition-all"
-                    style={{ background: "linear-gradient(135deg,#2563eb,#06b6d4)" }}
+                    className="h-11 px-7 rounded-2xl font-bold text-white border-0 shadow-md hover:scale-105 active:scale-100 transition-all"
+                    style={{ background: "linear-gradient(135deg,#4a7fd4,#3a9e88)" }}
                   >
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZ7ct-635WZNLJ_obGYIBTKvfLGigRHJzwLJUQPCMtf7GCpQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
                       Join the Club <ArrowRight className="ml-1.5 w-4 h-4" />
@@ -237,7 +237,7 @@ export default function Home() {
           <TabsContent value="about" className="mt-0 outline-none">
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="space-y-10">
               <motion.div variants={FADE_UP} className="text-center">
-                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Our Team</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Our Team</p>
                 <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Leadership</h2>
               </motion.div>
 
@@ -268,10 +268,10 @@ export default function Home() {
               {/* General members banner */}
               <motion.div variants={FADE_UP}>
                 <div className="rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
-                  style={{ background: "linear-gradient(135deg,rgba(37,99,235,0.07),rgba(16,185,129,0.07))", border: "1px solid rgba(59,130,246,0.12)" }}
+                  style={{ background: "rgba(248,250,252,0.9)", border: "1px solid rgba(148,163,184,0.18)" }}
                 >
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-1">General Members</p>
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">General Members</p>
                     <p className="text-slate-600 font-medium">A growing community of developers, designers, and artists.</p>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
@@ -295,8 +295,8 @@ export default function Home() {
               className="flex flex-col items-center justify-center py-28 rounded-3xl text-center gap-5"
               style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.9)" }}
             >
-              <div className="w-16 h-16 rounded-3xl flex items-center justify-center shadow-lg"
-                style={{ background: "linear-gradient(135deg,#2563eb,#06b6d4)" }}
+              <div className="w-16 h-16 rounded-3xl flex items-center justify-center shadow-md"
+                style={{ background: "linear-gradient(135deg,#4a7fd4,#8b6ed4)" }}
               >
                 <Gamepad2 className="w-8 h-8 text-white" />
               </div>
