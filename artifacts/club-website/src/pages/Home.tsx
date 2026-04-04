@@ -1,107 +1,98 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Users, MapPin } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, Gamepad2, Star } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
 
+/* ─── Animation variants ─── */
 const FADE_UP = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
-
 const STAGGER = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
 
+/* ─── Animated counter ─── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const motionVal = useMotionValue(0);
-  const spring = useSpring(motionVal, { stiffness: 60, damping: 18, mass: 0.8 });
+  const spring = useSpring(motionVal, { stiffness: 55, damping: 16, mass: 0.9 });
   const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    if (inView) motionVal.set(target);
-  }, [inView, target, motionVal]);
-
-  useEffect(() => {
-    return spring.on("change", (v) => setDisplay(Math.round(v)));
-  }, [spring]);
-
+  useEffect(() => { if (inView) motionVal.set(target); }, [inView, target, motionVal]);
+  useEffect(() => spring.on("change", (v) => setDisplay(Math.round(v))), [spring]);
   return <span ref={ref}>{display}{suffix}</span>;
 }
 
+/* ─── Static data ─── */
 const STATS = [
-  { label: "Members", value: 25, suffix: "+", gradient: "from-blue-400 via-blue-500 to-indigo-600", floatDelay: 0 },
-  { label: "Meetings", value: 4, suffix: "", gradient: "from-emerald-400 via-teal-500 to-cyan-600", floatDelay: 0.6 },
-  { label: "Projects", value: 0, suffix: "", gradient: "from-violet-400 via-purple-500 to-fuchsia-600", floatDelay: 1.2 },
+  { label: "Members",  value: 25, suffix: "+", gradient: "from-blue-500 via-blue-500 to-indigo-600",    glow: "rgba(99,102,241,0.35)",   floatDelay: 0   },
+  { label: "Meetings", value: 4,  suffix: "",  gradient: "from-emerald-400 via-teal-500 to-cyan-500",   glow: "rgba(20,184,166,0.35)",   floatDelay: 0.7 },
+  { label: "Projects", value: 0,  suffix: "",  gradient: "from-violet-500 via-purple-500 to-fuchsia-500", glow: "rgba(168,85,247,0.35)", floatDelay: 1.4 },
 ];
 
 const MEMBERS = [
-  { role: "President", name: "Justin Ding", initials: "JD", gradient: "from-blue-500 to-blue-700" },
-  { role: "Vice President", name: "Shrihaan Zaroo", initials: "SZ", gradient: "from-emerald-500 to-emerald-700" },
-  { role: "Secretary", name: "William Xing", initials: "WX", gradient: "from-violet-500 to-violet-700" },
-  { role: "Secretary", name: "Alan Tang", initials: "AT", gradient: "from-violet-500 to-violet-700" },
+  { role: "President",      name: "Justin Ding",    initials: "JD", from: "#3b82f6", to: "#1d4ed8" },
+  { role: "Vice President", name: "Shrihaan Zaroo",  initials: "SZ", from: "#10b981", to: "#047857" },
+  { role: "Secretary",      name: "William Xing",    initials: "WX", from: "#8b5cf6", to: "#6d28d9" },
+  { role: "Secretary",      name: "Alan Tang",       initials: "AT", from: "#8b5cf6", to: "#6d28d9" },
 ];
 
-export default function Home() {
-  useEffect(() => {
-    document.documentElement.classList.remove("dark");
-  }, []);
+const INFO_ROWS = [
+  { icon: <Calendar className="w-4 h-4" />, label: "Every Wednesday at lunch", sub: "Weekly meetings", color: "#10b981" },
+  { icon: <MapPin    className="w-4 h-4" />, label: "Room 923",                 sub: "Location",       color: "#8b5cf6" },
+  { icon: <Gamepad2  className="w-4 h-4" />, label: "Unity · Art · Design",     sub: "We cover",       color: "#3b82f6" },
+];
 
+/* ─── Dot-grid SVG background ─── */
+const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1' cy='1' r='1' fill='%233b82f6' fill-opacity='0.07'/%3E%3C/svg%3E")`;
+
+export default function Home() {
+  useEffect(() => { document.documentElement.classList.remove("dark"); }, []);
   const { count: liveMembers, loading: membersLoading } = useMemberCount();
 
   return (
-    <div
-      className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #dbeafe 0%, #eff6ff 25%, #f0fdf4 60%, #dcfce7 100%)",
-      }}
+    <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
+      style={{ background: "linear-gradient(150deg,#e0effe 0%,#f0f7ff 35%,#f4fdf6 70%,#e8faf0 100%)" }}
     >
-      {/* Gradient mesh orbs */}
-      <div className="absolute top-[-15%] left-[-8%] w-[55%] h-[55%] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 70%)" }} />
-      <div className="absolute bottom-[-15%] right-[-8%] w-[50%] h-[50%] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(34,197,94,0.18) 0%, transparent 70%)" }} />
-      <div className="absolute top-[35%] right-[5%] w-[35%] h-[35%] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)" }} />
+      {/* Dot grid texture */}
+      <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: DOT_GRID }} />
+
+      {/* Ambient orbs */}
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)" }} />
+      <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.14) 0%, transparent 70%)" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)" }} />
 
       <Tabs defaultValue="overview" className="flex flex-col flex-1 z-10 relative">
 
-        {/* ── Sticky top nav ── */}
-        <header
-          className="sticky top-0 z-50 w-full"
-          style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255,255,255,0.85)", boxShadow: "0 2px 20px rgba(59,130,246,0.07)" }}
+        {/* ── NAV ── */}
+        <header className="sticky top-0 z-50 w-full"
+          style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(20px) saturate(180%)", borderBottom: "1px solid rgba(148,163,184,0.15)", boxShadow: "0 1px 40px rgba(15,23,42,0.06)" }}
         >
-          <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-            {/* Logo + wordmark */}
-            <div className="flex items-center gap-3 shrink-0">
-              <img
-                src={`${import.meta.env.BASE_URL}lahs-logo.png`}
-                alt="LAHS Game Dev Club Logo"
-                className="w-9 h-9 object-contain"
-              />
-              <span className="font-extrabold text-lg leading-none">
-                <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Game Dev</span>{" "}
-                <span className="text-slate-800">Club</span>
+          <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="p-1 rounded-xl" style={{ background: "rgba(255,255,255,0.8)", border: "1px solid rgba(148,163,184,0.2)" }}>
+                <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="Logo" className="w-8 h-8 object-contain" />
+              </div>
+              <span className="font-black text-base tracking-tight">
+                <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
+                <span className="text-slate-700"> Club</span>
               </span>
             </div>
 
-            {/* Tab triggers */}
-            <TabsList className="h-10 p-1 rounded-xl gap-0.5"
-              style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.9)", boxShadow: "none" }}
+            <TabsList className="h-9 p-0.5 gap-0 rounded-xl"
+              style={{ background: "rgba(241,245,249,0.8)", border: "1px solid rgba(148,163,184,0.2)" }}
             >
-              {[
-                { value: "overview", label: "Overview" },
-                { value: "about", label: "About Us" },
-                { value: "projects", label: "Projects" },
-              ].map(({ value, label }) => (
+              {[{ value: "overview", label: "Overview" }, { value: "about", label: "About Us" }, { value: "projects", label: "Projects" }].map(({ value, label }) => (
                 <TabsTrigger key={value} value={value}
-                  className="px-5 rounded-lg text-sm font-semibold text-slate-500 transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm"
+                  className="px-4 h-8 rounded-[10px] text-sm font-semibold text-slate-500 transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm data-[state=active]:shadow-blue-100/80"
                 >
                   {label}
                 </TabsTrigger>
@@ -110,113 +101,131 @@ export default function Home() {
           </div>
         </header>
 
-        {/* ── Page content ── */}
-        <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-12 md:py-16">
+        {/* ── CONTENT ── */}
+        <main className="flex-1 w-full max-w-5xl mx-auto px-5 pt-14 pb-20">
 
           {/* Hero */}
           <motion.div initial="hidden" animate="visible" variants={FADE_UP}
-            className="flex flex-col items-center text-center space-y-5 mb-14"
+            className="flex flex-col items-center text-center mb-16"
           >
-            <div className="p-2 rounded-3xl shadow-lg shadow-blue-200/60"
-              style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.9)" }}
+            {/* Logo pill */}
+            <motion.div className="mb-7 relative"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
-              <img
-                src={`${import.meta.env.BASE_URL}lahs-logo.png`}
-                alt="LAHS Game Dev Club Logo"
-                className="w-28 h-28 object-contain"
-              />
+              <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
+                style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.3),rgba(16,185,129,0.3))" }} />
+              <div className="relative p-3 rounded-3xl"
+                style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
+              >
+                <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain" />
+              </div>
+            </motion.div>
+
+            {/* Pill label */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
+              style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", color: "#2563eb" }}
+            >
+              <Star className="w-3 h-3 fill-current" />
+              Los Altos High School
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-none">
-              <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Game Dev</span>{" "}
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
+              <span style={{ background: "linear-gradient(100deg,#2563eb 0%,#06b6d4 50%,#10b981 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                Game Dev
+              </span>{" "}
               <span className="text-slate-800">Club</span>
             </h1>
 
-            <p className="text-lg md:text-xl font-semibold text-slate-500 tracking-wide uppercase">
-              Los Altos High School
+            <p className="text-slate-500 text-lg md:text-xl max-w-md leading-relaxed">
+              Building real games, real skills, and real friendships — together.
             </p>
           </motion.div>
 
-          {/* TAB 1: Overview */}
+          {/* ── TAB: Overview ── */}
           <TabsContent value="overview" className="mt-0 outline-none">
 
-            {/* Stat circles */}
+            {/* Floating stat circles */}
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
-              className="flex justify-center gap-6 md:gap-10 mb-14"
+              className="flex justify-center gap-8 md:gap-14 mb-16"
             >
-              {STATS.map(({ label, value, suffix, gradient, floatDelay }) => {
-                const resolvedValue = label === "Members" && liveMembers !== null
-                  ? liveMembers
-                  : value;
-                const resolvedSuffix = label === "Members" && liveMembers !== null ? "" : suffix;
-
+              {STATS.map(({ label, value, suffix, gradient, glow, floatDelay }) => {
+                const resolved = label === "Members" && liveMembers !== null ? liveMembers : value;
+                const sfx = label === "Members" && liveMembers !== null ? "" : suffix;
                 return (
                   <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
-                    <motion.div
-                      className={`w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient} shadow-xl`}
-                      animate={{ y: [0, -12, 0] }}
-                      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: floatDelay }}
-                      style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.15)" }}
-                    >
-                      {label === "Members" && membersLoading ? (
-                        <span className="text-white text-2xl font-bold opacity-60">…</span>
-                      ) : (
-                        <span className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-sm">
-                          <AnimatedCounter target={resolvedValue} suffix={resolvedSuffix} />
-                        </span>
-                      )}
-                    </motion.div>
-                    <span className="text-sm font-bold uppercase tracking-widest text-slate-500">{label}</span>
+                    <div className="relative">
+                      <div className="absolute inset-0 rounded-full blur-xl scale-110 opacity-70" style={{ background: `radial-gradient(circle, ${glow}, transparent)` }} />
+                      <motion.div
+                        className={`relative w-28 h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient}`}
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: floatDelay }}
+                        style={{ boxShadow: `0 16px 48px ${glow}` }}
+                      >
+                        {label === "Members" && membersLoading
+                          ? <span className="text-white/70 text-2xl font-bold">…</span>
+                          : <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">
+                              <AnimatedCounter target={resolved} suffix={sfx} />
+                            </span>
+                        }
+                      </motion.div>
+                    </div>
+                    <span className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400">{label}</span>
                   </motion.div>
                 );
               })}
             </motion.div>
 
-            <motion.div initial="hidden" animate="visible" variants={STAGGER}
-              className="grid gap-8 md:grid-cols-2 items-center"
-            >
-              <motion.div variants={FADE_UP} className="flex flex-col space-y-6">
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-800 leading-snug">
-                  Build Real Games.<br />Build Real Skills.
-                </h2>
-                <p className="text-slate-500 text-lg leading-relaxed">
-                  We are a student-run club dedicated to teaching game development through Unity, collaborative projects, and peer learning. Whether you're a seasoned coder or a complete beginner, there's a place for you here.
-                </p>
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <Button size="lg"
-                    className="font-bold px-8 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-lg shadow-blue-200 hover:scale-105 transition-all duration-200 border-0"
-                    asChild
+            {/* Bento grid */}
+            <motion.div initial="hidden" animate="visible" variants={STAGGER} className="grid md:grid-cols-5 gap-4">
+
+              {/* Mission — wide left card */}
+              <motion.div variants={FADE_UP} className="md:col-span-3 rounded-3xl p-8 flex flex-col justify-between gap-6"
+                style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 32px rgba(15,23,42,0.07)" }}
+              >
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">Mission</p>
+                  <h2 className="text-2xl md:text-3xl font-black text-slate-800 leading-tight mb-4">
+                    Build Real Games.<br />Build Real Skills.
+                  </h2>
+                  <p className="text-slate-500 leading-relaxed">
+                    A student-run club teaching game development through Unity, collaborative projects, and peer learning. Seasoned coder or total beginner — there's a place for you.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <Button size="lg" asChild
+                    className="h-11 px-7 rounded-2xl font-bold text-white border-0 shadow-lg shadow-blue-200 hover:scale-105 active:scale-100 transition-all"
+                    style={{ background: "linear-gradient(135deg,#2563eb,#06b6d4)" }}
                   >
                     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZ7ct-635WZNLJ_obGYIBTKvfLGigRHJzwLJUQPCMtf7GCpQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
-                      Sign Up
+                      Join the Club <ArrowRight className="ml-1.5 w-4 h-4" />
                     </a>
                   </Button>
-                  <Button size="lg" variant="outline"
-                    className="font-bold px-6 h-12 rounded-xl border-slate-200 bg-white/70 hover:bg-white text-slate-700 hover:scale-105 transition-all duration-200"
-                    asChild
+                  <Button size="lg" variant="outline" asChild
+                    className="h-11 px-6 rounded-2xl font-semibold border-slate-200 bg-white/60 hover:bg-white text-slate-600 hover:scale-105 active:scale-100 transition-all"
                   >
                     <a href="https://www.instagram.com/lahs_game_dev_club/" target="_blank" rel="noopener noreferrer">
-                      <SiInstagram className="mr-2 h-5 w-5 text-pink-500" />
-                      @lahs_game_dev_club
+                      <SiInstagram className="mr-2 w-4 h-4 text-pink-500" />
+                      Instagram
                     </a>
                   </Button>
                 </div>
               </motion.div>
 
-              <motion.div variants={FADE_UP} className="flex flex-col gap-4">
-                {[
-                  { icon: <Users className="w-5 h-5 text-blue-500" />, label: "Community", value: "25+ active members passionate about coding, art, and game design.", accent: "blue" },
-                  { icon: <Calendar className="w-5 h-5 text-emerald-500" />, label: "Meetings", value: "Every Wednesday at lunch.", accent: "emerald" },
-                  { icon: <MapPin className="w-5 h-5 text-violet-500" />, label: "Location", value: "Room 923", accent: "violet" },
-                ].map(({ icon, label, value, accent }) => (
-                  <div key={label}
-                    className="flex items-start gap-4 p-5 rounded-2xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-                    style={{ background: "rgba(255,255,255,0.65)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.9)", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
+              {/* Info rows — right column */}
+              <motion.div variants={FADE_UP} className="md:col-span-2 flex flex-col gap-4">
+                {INFO_ROWS.map(({ icon, label, sub, color }) => (
+                  <div key={sub} className="flex-1 rounded-3xl p-5 flex items-center gap-4 transition-all duration-200 hover:-translate-y-0.5"
+                    style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
                   >
-                    <div className={`p-2 rounded-xl bg-${accent}-50 ring-1 ring-${accent}-100 shrink-0`}>{icon}</div>
+                    <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 text-white"
+                      style={{ background: `linear-gradient(135deg,${color}cc,${color})` }}
+                    >
+                      {icon}
+                    </div>
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-0.5">{label}</p>
-                      <p className="text-slate-700 font-medium">{value}</p>
+                      <p className="text-[11px] font-bold uppercase tracking-widest mb-0.5" style={{ color: `${color}` }}>{sub}</p>
+                      <p className="text-slate-700 font-semibold text-sm">{label}</p>
                     </div>
                   </div>
                 ))}
@@ -224,54 +233,78 @@ export default function Home() {
             </motion.div>
           </TabsContent>
 
-          {/* TAB 2: About Us */}
+          {/* ── TAB: About Us ── */}
           <TabsContent value="about" className="mt-0 outline-none">
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="space-y-10">
               <motion.div variants={FADE_UP} className="text-center">
-                <h2 className="text-3xl font-bold text-slate-800 mb-2">Leadership Team</h2>
-                <p className="text-slate-500">The students making it happen.</p>
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Our Team</p>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight">Leadership</h2>
               </motion.div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {MEMBERS.map((member, i) => (
-                  <motion.div key={i} variants={FADE_UP}>
-                    <div
-                      className="group flex flex-col items-center text-center p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-default"
-                      style={{ background: "rgba(255,255,255,0.65)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.9)", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
-                    >
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${member.gradient} flex items-center justify-center text-white font-bold text-lg mb-4 shadow-md`}>
-                        {member.initials}
+                {MEMBERS.map((m, i) => (
+                  <motion.div key={i} variants={FADE_UP}
+                    className="group rounded-3xl p-6 flex flex-col items-center text-center gap-4 cursor-default transition-all duration-300 hover:-translate-y-1.5"
+                    style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
+                    whileHover={{ boxShadow: `0 16px 48px rgba(15,23,42,0.1)` }}
+                  >
+                    <div className="relative">
+                      <div className="absolute inset-0 rounded-full blur-lg scale-125 opacity-50 group-hover:opacity-80 transition-opacity"
+                        style={{ background: `linear-gradient(135deg,${m.from}80,${m.to}80)` }} />
+                      <div className="relative w-16 h-16 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg"
+                        style={{ background: `linear-gradient(135deg,${m.from},${m.to})` }}
+                      >
+                        {m.initials}
                       </div>
-                      <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">{member.role}</p>
-                      <p className="text-slate-800 font-semibold text-base">{member.name}</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-widest mb-1" style={{ color: m.from }}>{m.role}</p>
+                      <p className="text-slate-800 font-bold">{m.name}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
 
-              <motion.div variants={FADE_UP} className="flex justify-center pt-2">
-                <div
-                  className="inline-flex items-center gap-4 px-7 py-4 rounded-2xl"
-                  style={{ background: "rgba(255,255,255,0.65)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.9)", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}
+              {/* General members banner */}
+              <motion.div variants={FADE_UP}>
+                <div className="rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+                  style={{ background: "linear-gradient(135deg,rgba(37,99,235,0.07),rgba(16,185,129,0.07))", border: "1px solid rgba(59,130,246,0.12)" }}
                 >
-                  <Users className="w-5 h-5 text-slate-400" />
-                  <span className="text-slate-700 font-semibold">General Members</span>
-                  <Badge className="bg-gradient-to-r from-blue-500 to-emerald-500 text-white border-0 font-bold px-3 py-1 text-sm">
-                    25+ Active
-                  </Badge>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-1">General Members</p>
+                    <p className="text-slate-600 font-medium">A growing community of developers, designers, and artists.</p>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <div className="flex -space-x-2">
+                      {["#3b82f6","#10b981","#8b5cf6","#f59e0b","#ef4444"].map((c,i) => (
+                        <div key={i} className="w-8 h-8 rounded-full border-2 border-white" style={{ background: c }} />
+                      ))}
+                    </div>
+                    <span className="text-2xl font-black text-slate-800">
+                      {liveMembers !== null ? liveMembers : "25+"} <span className="text-slate-400 text-sm font-semibold">active</span>
+                    </span>
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
           </TabsContent>
 
-          {/* TAB 3: Projects */}
+          {/* ── TAB: Projects ── */}
           <TabsContent value="projects" className="mt-0 outline-none">
-            <div
-              className="flex flex-col items-center justify-center py-24 text-center rounded-2xl"
-              style={{ background: "rgba(255,255,255,0.45)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.9)" }}
+            <motion.div initial="hidden" animate="visible" variants={FADE_UP}
+              className="flex flex-col items-center justify-center py-28 rounded-3xl text-center gap-5"
+              style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.9)" }}
             >
-              <p className="text-slate-400 text-lg font-medium">Projects coming soon.</p>
-            </div>
+              <div className="w-16 h-16 rounded-3xl flex items-center justify-center shadow-lg"
+                style={{ background: "linear-gradient(135deg,#2563eb,#06b6d4)" }}
+              >
+                <Gamepad2 className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-black text-slate-700 mb-1">Projects coming soon</h3>
+                <p className="text-slate-400 text-sm max-w-xs">Our first batch of games is in the works. Check back soon!</p>
+              </div>
+            </motion.div>
           </TabsContent>
 
         </main>
