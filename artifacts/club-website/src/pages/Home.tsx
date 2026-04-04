@@ -103,8 +103,11 @@ export default function Home() {
                 <div className="flex flex-wrap gap-3 pt-2">
                   <Button size="lg"
                     className="font-bold px-8 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white shadow-lg shadow-blue-200 hover:scale-105 transition-all duration-200 border-0"
+                    asChild
                   >
-                    Sign Up
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZ7ct-635WZNLJ_obGYIBTKvfLGigRHJzwLJUQPCMtf7GCpQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
+                      Sign Up
+                    </a>
                   </Button>
                   <Button size="lg" variant="outline"
                     className="font-bold px-6 h-12 rounded-xl border-slate-200 bg-white/70 hover:bg-white text-slate-700 hover:scale-105 transition-all duration-200"
