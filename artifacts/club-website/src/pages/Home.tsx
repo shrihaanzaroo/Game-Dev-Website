@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight, Gamepad2, Star } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
-import gameDevImg from "@assets/gamedev.png";
 
 /* ─── Animation variants ─── */
 const FADE_UP = {
@@ -107,20 +106,6 @@ export default function Home() {
           <motion.div initial="hidden" animate="visible" variants={FADE_UP}
             className="flex flex-col items-center text-center mb-16"
           >
-            {/* Logo pill */}
-            <motion.div className="mb-7 relative"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
-                style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.3),rgba(16,185,129,0.3))" }} />
-              <div className="relative p-3 rounded-3xl"
-                style={{ background: "rgba(255,255,255,1)", backdropFilter: "blur(16px)", border: "1px solid rgba(148,163,184,0.15)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
-              >
-                <img src={gameDevImg} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain opacity-[1]" />
-              </div>
-            </motion.div>
-
             {/* Pill label */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
               style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", color: "#2563eb" }}
