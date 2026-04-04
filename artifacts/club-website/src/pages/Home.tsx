@@ -79,9 +79,7 @@ export default function Home() {
         >
           <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="p-1 rounded-xl" style={{ background: "rgba(255,255,255,0.8)", border: "1px solid rgba(148,163,184,0.2)" }}>
-                <img src={clubLogo} alt="Logo" className="w-8 h-8 object-contain" style={{ mixBlendMode: "multiply" }} />
-              </div>
+              <img src={clubLogo} alt="Logo" className="w-12 h-12 object-contain" style={{ mixBlendMode: "multiply" }} />
               <span className="font-black text-base tracking-tight">
                 <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
                 <span className="text-slate-700"> Club</span>
