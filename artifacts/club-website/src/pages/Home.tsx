@@ -272,7 +272,6 @@ export default function Home() {
                 >
                   <div>
                     <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-1">General Members</p>
-                    <p className="text-slate-600 font-medium">A growing community of developers, designers, and artists.</p>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                     <div className="flex -space-x-2">
@@ -300,10 +299,7 @@ export default function Home() {
               >
                 <Gamepad2 className="w-8 h-8 text-white" />
               </div>
-              <div>
-                <h3 className="text-xl font-black text-slate-700 mb-1">Projects coming soon</h3>
-                <p className="text-slate-400 text-sm max-w-xs">Our first batch of games is in the works. Check back soon!</p>
-              </div>
+              <h3 className="text-xl font-black text-slate-700">Projects coming soon</h3>
             </motion.div>
           </TabsContent>
 
