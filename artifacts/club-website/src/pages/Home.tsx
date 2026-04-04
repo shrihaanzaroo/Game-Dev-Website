@@ -109,7 +109,7 @@ export default function Home() {
           >
             {/* Hero logo — with gradient bubble */}
             <motion.div
-              className="-mb-36 relative flex items-center justify-center"
+              className="-mb-36 -mt-20 relative flex items-center justify-center"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
             >
