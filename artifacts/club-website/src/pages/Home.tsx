@@ -29,7 +29,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
+    <div
+      className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #dbeafe 0%, #eff6ff 25%, #f0fdf4 60%, #dcfce7 100%)",
       }}
@@ -42,37 +43,30 @@ export default function Home() {
       <div className="absolute top-[35%] right-[5%] w-[35%] h-[35%] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)" }} />
 
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-12 md:py-20 z-10 relative">
+      <Tabs defaultValue="overview" className="flex flex-col flex-1 z-10 relative">
 
-        {/* Hero */}
-        <motion.div initial="hidden" animate="visible" variants={FADE_UP}
-          className="flex flex-col items-center text-center space-y-5 mb-14"
+        {/* ── Sticky top nav ── */}
+        <header
+          className="sticky top-0 z-50 w-full"
+          style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255,255,255,0.85)", boxShadow: "0 2px 20px rgba(59,130,246,0.07)" }}
         >
-          <div className="p-2 rounded-3xl shadow-lg shadow-blue-200/60"
-            style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.9)" }}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}lahs-logo.png`}
-              alt="LAHS Game Dev Club Logo"
-              className="w-32 h-32 object-contain"
-            />
-          </div>
+          <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+            {/* Logo + wordmark */}
+            <div className="flex items-center gap-3 shrink-0">
+              <img
+                src={`${import.meta.env.BASE_URL}lahs-logo.png`}
+                alt="LAHS Game Dev Club Logo"
+                className="w-9 h-9 object-contain"
+              />
+              <span className="font-extrabold text-lg leading-none">
+                <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Game Dev</span>{" "}
+                <span className="text-slate-800">Club</span>
+              </span>
+            </div>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-none">
-            <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Game Dev</span>{" "}
-            <span className="text-slate-800">Club</span>
-          </h1>
-
-          <p className="text-lg md:text-xl font-semibold text-slate-500 tracking-wide uppercase">
-            Los Altos High School
-          </p>
-        </motion.div>
-
-        {/* Tabs */}
-        <Tabs defaultValue="overview" className="w-full">
-          <div className="flex justify-center mb-10">
-            <TabsList className="h-12 p-1 rounded-2xl gap-1"
-              style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.85)", boxShadow: "0 4px 24px rgba(59,130,246,0.08)" }}
+            {/* Tab triggers */}
+            <TabsList className="h-10 p-1 rounded-xl gap-0.5"
+              style={{ background: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.9)", boxShadow: "none" }}
             >
               {[
                 { value: "overview", label: "Overview" },
@@ -80,13 +74,41 @@ export default function Home() {
                 { value: "projects", label: "Projects" },
               ].map(({ value, label }) => (
                 <TabsTrigger key={value} value={value}
-                  className="px-6 rounded-xl text-sm font-semibold text-slate-500 transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-md data-[state=active]:shadow-blue-100"
+                  className="px-5 rounded-lg text-sm font-semibold text-slate-500 transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm"
                 >
                   {label}
                 </TabsTrigger>
               ))}
             </TabsList>
           </div>
+        </header>
+
+        {/* ── Page content ── */}
+        <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-12 md:py-16">
+
+          {/* Hero */}
+          <motion.div initial="hidden" animate="visible" variants={FADE_UP}
+            className="flex flex-col items-center text-center space-y-5 mb-14"
+          >
+            <div className="p-2 rounded-3xl shadow-lg shadow-blue-200/60"
+              style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.9)" }}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}lahs-logo.png`}
+                alt="LAHS Game Dev Club Logo"
+                className="w-28 h-28 object-contain"
+              />
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-none">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Game Dev</span>{" "}
+              <span className="text-slate-800">Club</span>
+            </h1>
+
+            <p className="text-lg md:text-xl font-semibold text-slate-500 tracking-wide uppercase">
+              Los Altos High School
+            </p>
+          </motion.div>
 
           {/* TAB 1: Overview */}
           <TabsContent value="overview" className="mt-0 outline-none">
@@ -191,8 +213,9 @@ export default function Home() {
               <p className="text-slate-400 text-lg font-medium">Projects coming soon.</p>
             </div>
           </TabsContent>
-        </Tabs>
-      </main>
+
+        </main>
+      </Tabs>
     </div>
   );
 }
