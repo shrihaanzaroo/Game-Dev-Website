@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight, Gamepad2, Star } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
+import clubLogo from "@assets/gamedev_1775281169605.png";
 
 /* ─── Animation variants ─── */
 const FADE_UP = {
@@ -77,7 +78,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="p-1 rounded-xl" style={{ background: "rgba(255,255,255,0.8)", border: "1px solid rgba(148,163,184,0.2)" }}>
-                <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="Logo" className="w-8 h-8 object-contain" />
+                <img src={clubLogo} alt="Logo" className="w-8 h-8 object-contain" style={{ mixBlendMode: "multiply" }} />
               </div>
               <span className="font-black text-base tracking-tight">
                 <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
@@ -106,6 +107,20 @@ export default function Home() {
           <motion.div initial="hidden" animate="visible" variants={FADE_UP}
             className="flex flex-col items-center text-center mb-16"
           >
+            {/* Hero logo — big */}
+            <motion.div
+              className="mb-6"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <img
+                src={clubLogo}
+                alt="LAHS Game Dev Club Logo"
+                className="w-72 h-72 md:w-[28rem] md:h-[28rem] object-contain"
+                style={{ mixBlendMode: "multiply" }}
+              />
+            </motion.div>
+
             {/* Pill label */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
               style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", color: "#2563eb" }}
