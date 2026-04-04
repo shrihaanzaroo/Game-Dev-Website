@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,30 @@ const STAGGER = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
 };
+
+function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const motionVal = useMotionValue(0);
+  const spring = useSpring(motionVal, { stiffness: 60, damping: 18, mass: 0.8 });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (inView) motionVal.set(target);
+  }, [inView, target, motionVal]);
+
+  useEffect(() => {
+    return spring.on("change", (v) => setDisplay(Math.round(v)));
+  }, [spring]);
+
+  return <span ref={ref}>{display}{suffix}</span>;
+}
+
+const STATS = [
+  { label: "Members", value: 25, suffix: "+", gradient: "from-blue-500 to-blue-400", ring: "rgba(59,130,246,0.25)" },
+  { label: "Meetings", value: 4, suffix: "", gradient: "from-emerald-500 to-emerald-400", ring: "rgba(34,197,94,0.25)" },
+  { label: "Projects", value: 0, suffix: "", gradient: "from-violet-500 to-violet-400", ring: "rgba(139,92,246,0.25)" },
+];
 
 const MEMBERS = [
   { role: "President", name: "Justin Ding", initials: "JD", gradient: "from-blue-500 to-blue-700" },
@@ -112,6 +136,39 @@ export default function Home() {
 
           {/* TAB 1: Overview */}
           <TabsContent value="overview" className="mt-0 outline-none">
+
+            {/* Stat circles */}
+            <motion.div initial="hidden" animate="visible" variants={STAGGER}
+              className="flex justify-center gap-6 md:gap-10 mb-14"
+            >
+              {STATS.map(({ label, value, suffix, gradient, ring }) => (
+                <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
+                  <div
+                    className="relative w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center"
+                    style={{ boxShadow: `0 0 0 6px ${ring}, 0 8px 32px rgba(0,0,0,0.08)`, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(12px)" }}
+                  >
+                    {/* Colored ring accent */}
+                    <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="44" fill="none" stroke="url(#grad-border)" strokeWidth="3.5" strokeLinecap="round"
+                        strokeDasharray="276" strokeDashoffset="0" opacity="0.35" />
+                      <defs>
+                        <linearGradient id={`grad-${label}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor={gradient.includes("blue") ? "#3b82f6" : gradient.includes("emerald") ? "#10b981" : "#8b5cf6"} />
+                          <stop offset="100%" stopColor={gradient.includes("blue") ? "#60a5fa" : gradient.includes("emerald") ? "#34d399" : "#a78bfa"} />
+                        </linearGradient>
+                      </defs>
+                      <circle cx="50" cy="50" r="44" fill="none" stroke={`url(#grad-${label})`} strokeWidth="3.5" strokeLinecap="round"
+                        strokeDasharray="276" strokeDashoffset="0" />
+                    </svg>
+                    <span className={`text-3xl md:text-4xl font-extrabold bg-gradient-to-br ${gradient} bg-clip-text text-transparent`}>
+                      <AnimatedCounter target={value} suffix={suffix} />
+                    </span>
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-widest text-slate-500">{label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
               className="grid gap-8 md:grid-cols-2 items-center"
             >
