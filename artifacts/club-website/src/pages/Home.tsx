@@ -48,7 +48,7 @@ export default function Home() {
           </div>
           
           <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight">
-            Game Dev <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Club</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Game Dev</span> Club
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-2xl">
