@@ -107,16 +107,28 @@ export default function Home() {
           <motion.div initial="hidden" animate="visible" variants={FADE_UP}
             className="flex flex-col items-center text-center mb-16"
           >
-            {/* Hero logo — big */}
+            {/* Hero logo — with gradient bubble */}
             <motion.div
-              className="-mb-14"
+              className="-mb-14 relative flex items-center justify-center"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
             >
+              {/* Animated gradient orb */}
+              <motion.div
+                className="absolute rounded-full blur-3xl"
+                style={{
+                  width: "75%",
+                  height: "55%",
+                  top: "20%",
+                  background: "radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(6,182,212,0.35) 40%, rgba(16,185,129,0.25) 70%, transparent 100%)",
+                }}
+                animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+              />
               <img
                 src={clubLogo}
                 alt="LAHS Game Dev Club Logo"
-                className="w-80 h-auto object-contain"
+                className="w-96 h-auto object-contain relative"
                 style={{ mixBlendMode: "multiply" }}
               />
             </motion.div>
