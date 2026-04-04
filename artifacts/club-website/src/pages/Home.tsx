@@ -101,7 +101,7 @@ export default function Home() {
         </header>
 
         {/* ── CONTENT ── */}
-        <main className="flex-1 w-full max-w-5xl mx-auto px-5 pt-14 pb-20">
+        <main className="flex-1 w-full max-w-5xl mx-auto px-5 pt-2 pb-20">
 
           {/* Hero */}
           <motion.div initial="hidden" animate="visible" variants={FADE_UP}
