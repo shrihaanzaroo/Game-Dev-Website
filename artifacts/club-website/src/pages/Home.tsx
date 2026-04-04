@@ -31,9 +31,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 
 /* ─── Static data ─── */
 const STATS = [
-  { label: "Members",  value: 25, suffix: "+", gradient: "from-blue-500 via-blue-500 to-indigo-600",    glow: "rgba(99,102,241,0.35)",   floatDelay: 0   },
-  { label: "Meetings", value: 4,  suffix: "",  gradient: "from-emerald-400 via-teal-500 to-cyan-500",   glow: "rgba(20,184,166,0.35)",   floatDelay: 0.7 },
-  { label: "Projects", value: 0,  suffix: "",  gradient: "from-violet-500 via-purple-500 to-fuchsia-500", glow: "rgba(168,85,247,0.35)", floatDelay: 1.4 },
+  { label: "Members",  value: 25, suffix: "+", textGradient: "linear-gradient(135deg,#3b82f6,#6366f1)", ring: "rgba(99,102,241,0.5)",   glow: "rgba(99,102,241,0.22)",   floatDelay: 0   },
+  { label: "Meetings", value: 4,  suffix: "",  textGradient: "linear-gradient(135deg,#10b981,#06b6d4)", ring: "rgba(20,184,166,0.5)",   glow: "rgba(20,184,166,0.22)",   floatDelay: 0.7 },
+  { label: "Projects", value: 0,  suffix: "",  textGradient: "linear-gradient(135deg,#8b5cf6,#ec4899)", ring: "rgba(168,85,247,0.5)",   glow: "rgba(168,85,247,0.22)",   floatDelay: 1.4 },
 ];
 
 const MEMBERS = [
@@ -160,22 +160,31 @@ export default function Home() {
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
               className="flex justify-center gap-8 md:gap-14 mb-16"
             >
-              {STATS.map(({ label, value, suffix, gradient, glow, floatDelay }) => {
+              {STATS.map(({ label, value, suffix, textGradient, ring, glow, floatDelay }) => {
                 const resolved = label === "Members" && liveMembers !== null ? liveMembers : value;
                 const sfx = label === "Members" && liveMembers !== null ? "" : suffix;
                 return (
                   <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
                     <div className="relative">
-                      <div className="absolute inset-0 rounded-full blur-xl scale-110 opacity-70" style={{ background: `radial-gradient(circle, ${glow}, transparent)` }} />
+                      {/* Soft outer glow */}
+                      <div className="absolute inset-0 rounded-full blur-2xl scale-125 opacity-60"
+                        style={{ background: `radial-gradient(circle, ${glow}, transparent)` }} />
+                      {/* Glass circle */}
                       <motion.div
-                        className={`relative w-28 h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient}`}
-                        animate={{ y: [0, -10, 0] }}
+                        className="relative w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center gap-0.5"
+                        animate={{ y: [0, -8, 0] }}
                         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: floatDelay }}
-                        style={{ boxShadow: `0 16px 48px ${glow}` }}
+                        style={{
+                          background: "rgba(255,255,255,0.55)",
+                          backdropFilter: "blur(20px)",
+                          border: `1.5px solid ${ring}`,
+                          boxShadow: `0 8px 32px ${glow}, inset 0 1px 0 rgba(255,255,255,0.9)`,
+                        }}
                       >
                         {label === "Members" && membersLoading
-                          ? <span className="text-white/70 text-2xl font-bold">…</span>
-                          : <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">
+                          ? <span className="text-2xl font-bold text-slate-400">…</span>
+                          : <span className="text-3xl md:text-4xl font-black tracking-tighter"
+                              style={{ background: textGradient, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                               <AnimatedCounter target={resolved} suffix={sfx} />
                             </span>
                         }
