@@ -141,26 +141,12 @@ export default function Home() {
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
               className="flex justify-center gap-6 md:gap-10 mb-14"
             >
-              {STATS.map(({ label, value, suffix, gradient, ring }) => (
+              {STATS.map(({ label, value, suffix, gradient }) => (
                 <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
                   <div
-                    className="relative w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center"
-                    style={{ boxShadow: `0 0 0 6px ${ring}, 0 8px 32px rgba(0,0,0,0.08)`, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(12px)" }}
+                    className={`w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient} shadow-lg`}
                   >
-                    {/* Colored ring accent */}
-                    <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
-                      <circle cx="50" cy="50" r="44" fill="none" stroke="url(#grad-border)" strokeWidth="3.5" strokeLinecap="round"
-                        strokeDasharray="276" strokeDashoffset="0" opacity="0.35" />
-                      <defs>
-                        <linearGradient id={`grad-${label}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor={gradient.includes("blue") ? "#3b82f6" : gradient.includes("emerald") ? "#10b981" : "#8b5cf6"} />
-                          <stop offset="100%" stopColor={gradient.includes("blue") ? "#60a5fa" : gradient.includes("emerald") ? "#34d399" : "#a78bfa"} />
-                        </linearGradient>
-                      </defs>
-                      <circle cx="50" cy="50" r="44" fill="none" stroke={`url(#grad-${label})`} strokeWidth="3.5" strokeLinecap="round"
-                        strokeDasharray="276" strokeDashoffset="0" />
-                    </svg>
-                    <span className={`text-3xl md:text-4xl font-extrabold bg-gradient-to-br ${gradient} bg-clip-text text-transparent`}>
+                    <span className="text-3xl md:text-4xl font-extrabold text-white">
                       <AnimatedCounter target={value} suffix={suffix} />
                     </span>
                   </div>
