@@ -62,7 +62,6 @@ export default function Home() {
     >
       {/* Dot grid texture */}
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: DOT_GRID }} />
-
       {/* Ambient orbs */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)" }} />
@@ -70,7 +69,6 @@ export default function Home() {
         style={{ background: "radial-gradient(circle, rgba(16,185,129,0.14) 0%, transparent 70%)" }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)" }} />
-
       <Tabs defaultValue="overview" className="flex flex-col flex-1 z-10 relative">
 
         {/* ── NAV ── */}
@@ -119,7 +117,7 @@ export default function Home() {
               <div className="relative p-3 rounded-3xl"
                 style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
               >
-                <img src={gameDevImg} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain" />
+                <img src={gameDevImg} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain ml-[0px] mr-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px] rounded-tl-[3px] rounded-tr-[3px] rounded-br-[3px] rounded-bl-[3px] opacity-[0.64]" />
               </div>
             </motion.div>
 
