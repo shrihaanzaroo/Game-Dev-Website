@@ -120,7 +120,7 @@ export default function Home() {
                   width: "75%",
                   height: "55%",
                   top: "20%",
-                  background: "radial-gradient(circle, rgba(59,130,246,0.45) 0%, rgba(6,182,212,0.35) 40%, rgba(16,185,129,0.25) 70%, transparent 100%)",
+                  background: "radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.3) 70%, transparent 100%)",
                 }}
                 animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
