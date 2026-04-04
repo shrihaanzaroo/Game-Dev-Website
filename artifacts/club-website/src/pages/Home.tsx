@@ -109,14 +109,14 @@ export default function Home() {
           >
             {/* Hero logo — big */}
             <motion.div
-              className="mb-1"
+              className="-mb-14"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
             >
               <img
                 src={clubLogo}
                 alt="LAHS Game Dev Club Logo"
-                className="w-40 h-auto object-contain"
+                className="w-80 h-auto object-contain"
                 style={{ mixBlendMode: "multiply" }}
               />
             </motion.div>
