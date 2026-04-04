@@ -117,7 +117,7 @@ export default function Home() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground text-lg">Every Tuesday after school in Room 404.</p>
+                    <p className="text-muted-foreground text-lg">Every Wednesday at lunch in Room 923.</p>
                   </CardContent>
                 </Card>
               </motion.div>
