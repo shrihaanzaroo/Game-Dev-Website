@@ -159,7 +159,7 @@ export default function Home() {
                   <Users className="w-6 h-6 text-muted-foreground mr-4" />
                   <span className="text-xl font-medium mr-4">General Members</span>
                   <Badge variant="secondary" className="text-lg px-3 py-1 bg-background text-foreground font-bold border-primary/20">
-                    ~20 Active
+                    25+ Active
                   </Badge>
                 </div>
               </motion.div>
