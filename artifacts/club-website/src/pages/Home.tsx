@@ -89,7 +89,7 @@ export default function Home() {
                 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Button size="lg" className="w-full sm:w-auto font-bold text-md h-14 px-8 bg-primary hover:bg-primary/90 hover:scale-105 transition-all">
-                    Join the Discord
+                    Sign Up
                   </Button>
                   <Button variant="outline" size="lg" className="w-full sm:w-auto font-bold text-md h-14 px-8 border-border/50 hover:bg-secondary transition-all" asChild>
                     <a href="https://www.instagram.com/lahs_game_dev_club/" target="_blank" rel="noopener noreferrer">
