@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Users, Code, Gamepad2, ArrowRight } from "lucide-react";
+import { Calendar, Users, ArrowRight } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 
 const FADE_UP = {
@@ -42,9 +42,8 @@ export default function Home() {
           variants={FADE_UP}
           className="flex flex-col items-center text-center space-y-6 mb-16"
         >
-          <div className="inline-flex items-center justify-center p-3 bg-secondary rounded-2xl mb-4 border border-border/50">
-            <Gamepad2 className="w-10 h-10 text-primary mr-3" />
-            <Code className="w-8 h-8 text-accent" />
+          <div className="mb-4">
+            <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-40 h-40 object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]" />
           </div>
           
           <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight">
