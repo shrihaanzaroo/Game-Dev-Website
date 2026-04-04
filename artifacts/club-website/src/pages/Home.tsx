@@ -141,7 +141,8 @@ export default function Home() {
                 {[
                   { role: "President", name: "Justin Ding", color: "border-primary/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]" },
                   { role: "Vice President", name: "Shrihaan Zaroo", color: "border-accent/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(34,197,94,0.3)]" },
-                  { role: "Secretary", name: "William Xing", color: "border-purple-500/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]" }
+                  { role: "Secretary", name: "William Xing", color: "border-purple-500/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]" },
+                  { role: "Secretary", name: "Alan Tang", color: "border-purple-500/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]" }
                 ].map((member, i) => (
                   <motion.div key={i} variants={FADE_UP} className="h-full">
                     <Card className={`h-full group bg-card/60 backdrop-blur-sm border ${member.color} transition-all duration-300 ${member.glow} hover:-translate-y-1`}>
