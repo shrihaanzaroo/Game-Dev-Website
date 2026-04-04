@@ -35,9 +35,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 const STATS = [
-  { label: "Members", value: 25, suffix: "+", gradient: "from-blue-500 to-blue-400", ring: "rgba(59,130,246,0.25)" },
-  { label: "Meetings", value: 4, suffix: "", gradient: "from-emerald-500 to-emerald-400", ring: "rgba(34,197,94,0.25)" },
-  { label: "Projects", value: 0, suffix: "", gradient: "from-violet-500 to-violet-400", ring: "rgba(139,92,246,0.25)" },
+  { label: "Members", value: 25, suffix: "+", gradient: "from-blue-400 via-blue-500 to-indigo-600", floatDelay: 0 },
+  { label: "Meetings", value: 4, suffix: "", gradient: "from-emerald-400 via-teal-500 to-cyan-600", floatDelay: 0.6 },
+  { label: "Projects", value: 0, suffix: "", gradient: "from-violet-400 via-purple-500 to-fuchsia-600", floatDelay: 1.2 },
 ];
 
 const MEMBERS = [
@@ -141,15 +141,18 @@ export default function Home() {
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
               className="flex justify-center gap-6 md:gap-10 mb-14"
             >
-              {STATS.map(({ label, value, suffix, gradient }) => (
+              {STATS.map(({ label, value, suffix, gradient, floatDelay }) => (
                 <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
-                  <div
-                    className={`w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient} shadow-lg`}
+                  <motion.div
+                    className={`w-28 h-28 md:w-36 md:h-36 rounded-full flex items-center justify-center bg-gradient-to-br ${gradient} shadow-xl`}
+                    animate={{ y: [0, -12, 0] }}
+                    transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: floatDelay }}
+                    style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.15)" }}
                   >
-                    <span className="text-3xl md:text-4xl font-extrabold text-white">
+                    <span className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-sm">
                       <AnimatedCounter target={value} suffix={suffix} />
                     </span>
-                  </div>
+                  </motion.div>
                   <span className="text-sm font-bold uppercase tracking-widest text-slate-500">{label}</span>
                 </motion.div>
               ))}
