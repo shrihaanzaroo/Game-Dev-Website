@@ -116,7 +116,7 @@ export default function Home() {
               <img
                 src={clubLogo}
                 alt="LAHS Game Dev Club Logo"
-                className="w-72 h-72 md:w-[28rem] md:h-[28rem] object-contain"
+                className="w-80 h-80 md:w-[38rem] md:h-[38rem] object-contain"
                 style={{ mixBlendMode: "multiply" }}
               />
             </motion.div>
