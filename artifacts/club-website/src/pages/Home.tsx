@@ -43,12 +43,11 @@ export default function Home() {
           variants={FADE_UP}
           className="flex flex-col items-center text-center space-y-6 mb-16"
         >
-          <div className="mb-4 w-36 overflow-hidden drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+          <div className="mb-4 drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]">
             <img
               src={`${import.meta.env.BASE_URL}lahs-logo.png`}
               alt="LAHS Game Dev Club Logo"
-              className="w-full object-cover object-top"
-              style={{ height: "72px", objectPosition: "top center" }}
+              className="w-40 h-40 object-contain"
             />
           </div>
           
