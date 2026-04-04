@@ -107,7 +107,7 @@ export default function Home() {
 
           {/* Hero */}
           <motion.div initial="hidden" animate="visible" variants={FADE_UP}
-            className="flex flex-col items-center text-center mb-16"
+            className="flex flex-col items-center text-center mb-6"
           >
             {/* Hero logo — with gradient bubble */}
             <motion.div
