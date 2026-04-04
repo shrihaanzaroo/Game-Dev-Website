@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Users, ArrowRight } from "lucide-react";
+import { Calendar, Users } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import lahsLogo from "@assets/Screenshot_2026-03-11_at_1.40.56_PM_1775275670198.png";
 
@@ -168,85 +168,9 @@ export default function Home() {
 
           {/* TAB 3: Project Portfolio */}
           <TabsContent value="projects" className="mt-0 outline-none">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={STAGGER_CONTAINER}
-              className="space-y-8"
-            >
-              <div className="text-center mb-10">
-                <h2 className="text-3xl font-bold mb-4">Our Work</h2>
-                <p className="text-muted-foreground text-lg">What we've been building together.</p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Project 1 */}
-                <motion.div variants={FADE_UP}>
-                  <Card className="overflow-hidden group bg-card/40 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 h-full flex flex-col">
-                    <div className="w-full h-56 md:h-64 overflow-hidden relative">
-                      <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                      <img 
-                        src="/projects/unity-tutorial.png" 
-                        alt="Unity Tutorial Series thumbnail" 
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                      />
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-2xl group-hover:text-primary transition-colors">Unity Tutorial Series</CardTitle>
-                      <CardDescription className="text-base mt-2 line-clamp-3">
-                        A beginner-friendly video tutorial series teaching Unity game engine basics to new members. Topics cover: scene setup, game objects, scripting in C#, physics, and UI.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="bg-secondary/50">Unity</Badge>
-                        <Badge variant="outline" className="bg-secondary/50">C#</Badge>
-                        <Badge variant="outline" className="bg-secondary/50">Education</Badge>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button className="w-full group/btn" variant="secondary">
-                        View Project
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </motion.div>
-
-                {/* Project 2 */}
-                <motion.div variants={FADE_UP}>
-                  <Card className="overflow-hidden group bg-card/40 backdrop-blur-sm border-border/50 hover:border-accent/50 transition-all duration-500 h-full flex flex-col">
-                    <div className="w-full h-56 md:h-64 overflow-hidden relative">
-                      <div className="absolute inset-0 bg-accent/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                      <img 
-                        src="/projects/club-website.png" 
-                        alt="Club Website project thumbnail" 
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                      />
-                    </div>
-                    <CardHeader>
-                      <CardTitle className="text-2xl group-hover:text-accent transition-colors">Club Website</CardTitle>
-                      <CardDescription className="text-base mt-2 line-clamp-3">
-                        This very website! Built by club members to showcase the club's work, projects, and community. A full React + Vite web app serving as our digital home.
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex-grow">
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="bg-secondary/50">React</Badge>
-                        <Badge variant="outline" className="bg-secondary/50">Vite</Badge>
-                        <Badge variant="outline" className="bg-secondary/50">Tailwind</Badge>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button className="w-full group/btn" variant="secondary">
-                        View Project
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </motion.div>
-              </div>
-            </motion.div>
+            <div className="flex flex-col items-center justify-center py-24 text-center text-muted-foreground">
+              <p className="text-xl font-medium">Projects coming soon.</p>
+            </div>
           </TabsContent>
         </Tabs>
       </main>
