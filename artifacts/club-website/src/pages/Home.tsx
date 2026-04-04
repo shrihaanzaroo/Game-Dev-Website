@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, ArrowRight, Gamepad2, Star } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
+import gameDevImg from "@assets/gamedev.png";
 
 /* ─── Animation variants ─── */
 const FADE_UP = {
@@ -118,7 +119,7 @@ export default function Home() {
               <div className="relative p-3 rounded-3xl"
                 style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
               >
-                <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain" />
+                <img src={gameDevImg} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain" />
               </div>
             </motion.div>
 
