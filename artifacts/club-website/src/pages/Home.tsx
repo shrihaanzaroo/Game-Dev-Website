@@ -25,8 +25,7 @@ const STAGGER_CONTAINER = {
 
 export default function Home() {
   useEffect(() => {
-    // Force dark mode for the club theme
-    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('dark');
   }, []);
 
   return (
