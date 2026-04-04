@@ -115,9 +115,9 @@ export default function Home() {
               <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
                 style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.3),rgba(16,185,129,0.3))" }} />
               <div className="relative p-3 rounded-3xl"
-                style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
+                style={{ background: "rgba(255,255,255,1)", backdropFilter: "blur(16px)", border: "1px solid rgba(148,163,184,0.15)", boxShadow: "0 8px 32px rgba(59,130,246,0.12), 0 0 0 1px rgba(148,163,184,0.1)" }}
               >
-                <img src={gameDevImg} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain ml-[0px] mr-[0px] pl-[0px] pr-[0px] pt-[0px] pb-[0px] rounded-tl-[3px] rounded-tr-[3px] rounded-br-[3px] rounded-bl-[3px] opacity-[1]" />
+                <img src={gameDevImg} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain" />
               </div>
             </motion.div>
 
