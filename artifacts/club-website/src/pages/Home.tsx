@@ -49,7 +49,7 @@ const INFO_ROWS = [
 ];
 
 /* ─── Dot-grid SVG background ─── */
-const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1' cy='1' r='1' fill='%236366f1' fill-opacity='0.12'/%3E%3C/svg%3E")`;
+const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1' cy='1' r='1' fill='%233b82f6' fill-opacity='0.07'/%3E%3C/svg%3E")`;
 
 /* ─── Shared card style ─── */
 const CARD = {
@@ -65,18 +65,18 @@ export default function Home() {
 
   return (
     <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
-      style={{ background: "linear-gradient(145deg,#0b1121 0%,#111827 40%,#0d1f2d 70%,#0f172a 100%)" }}
+      style={{ background: "linear-gradient(150deg,#e0effe 0%,#f0f7ff 35%,#f4fdf6 70%,#e8faf0 100%)" }}
     >
       {/* Dot grid texture */}
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: DOT_GRID }} />
 
       {/* Ambient orbs */}
       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)" }} />
       <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)" }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.14) 0%, transparent 70%)" }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)" }} />
 
       <Tabs defaultValue="overview" className="flex flex-col flex-1 z-10 relative">
 
