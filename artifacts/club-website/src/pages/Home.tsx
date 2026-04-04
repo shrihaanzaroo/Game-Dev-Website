@@ -123,10 +123,10 @@ export default function Home() {
             >
               <div className="absolute inset-0 rounded-3xl blur-2xl scale-110"
                 style={{ background: "linear-gradient(135deg,rgba(59,130,246,0.4),rgba(16,185,129,0.4))" }} />
-              <div className="relative p-3 rounded-3xl"
+              <div className="relative p-3 rounded-3xl flex items-center justify-center w-[120px] h-[120px]"
                 style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.15)", boxShadow: "0 8px 40px rgba(59,130,246,0.2)" }}
               >
-                <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-24 h-24 object-contain" />
+                <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-28 h-28 object-contain" />
               </div>
             </motion.div>
 
