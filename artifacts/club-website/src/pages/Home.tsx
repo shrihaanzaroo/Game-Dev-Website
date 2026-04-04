@@ -237,7 +237,7 @@ export default function Home() {
                   >
                     <a href="https://www.instagram.com/lahs_game_dev_club/" target="_blank" rel="noopener noreferrer">
                       <SiInstagram className="mr-2 w-4 h-4 text-pink-500" />
-                      Instagram
+                      @lahs_game_dev_club
                     </a>
                   </Button>
                 </div>
