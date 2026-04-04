@@ -233,7 +233,7 @@ export default function Home() {
               <img
                 src={`${import.meta.env.BASE_URL}lahs-logo.png`}
                 alt="LAHS Game Dev Club Logo"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </motion.div>
 
