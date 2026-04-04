@@ -220,7 +220,7 @@ export default function Home() {
                     Build Real Games.<br />Build Real Skills.
                   </h2>
                   <p className="text-slate-500 leading-relaxed">
-                    A student-run club teaching game development through Unity, Godot, and more — built on collaborative projects and peer learning. Seasoned coder or total beginner — there's a place for you.
+                    A student-run club teaching game development through Unity and other platforms — built on collaborative projects and peer learning. Seasoned coder or total beginner — there's a place for you.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-3">
