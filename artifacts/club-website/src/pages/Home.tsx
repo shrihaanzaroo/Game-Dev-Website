@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Users, ArrowRight } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
+import lahsLogo from "@assets/Screenshot_2026-03-11_at_1.40.56_PM_1775275670198.png";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 20 },
@@ -42,8 +43,8 @@ export default function Home() {
           variants={FADE_UP}
           className="flex flex-col items-center text-center space-y-6 mb-16"
         >
-          <div className="mb-4">
-            <img src={`${import.meta.env.BASE_URL}lahs-logo.png`} alt="LAHS Game Dev Club Logo" className="w-40 h-40 object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.4)]" />
+          <div className="mb-4 p-3 rounded-3xl bg-white shadow-[0_0_40px_-5px_rgba(59,130,246,0.5)] ring-1 ring-white/20">
+            <img src={lahsLogo} alt="LAHS Game Dev Club Logo" className="w-36 h-36 object-contain" />
           </div>
           
           <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight">
