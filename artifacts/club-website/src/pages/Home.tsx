@@ -43,8 +43,13 @@ export default function Home() {
           variants={FADE_UP}
           className="flex flex-col items-center text-center space-y-6 mb-16"
         >
-          <div className="mb-4 p-3 rounded-3xl bg-white shadow-[0_0_40px_-5px_rgba(59,130,246,0.5)] ring-1 ring-white/20">
-            <img src={lahsLogo} alt="LAHS Game Dev Club Logo" className="w-36 h-36 object-contain" />
+          <div className="mb-4 w-36 overflow-hidden drop-shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+            <img
+              src={`${import.meta.env.BASE_URL}lahs-logo.png`}
+              alt="LAHS Game Dev Club Logo"
+              className="w-full object-cover object-top"
+              style={{ height: "72px", objectPosition: "top center" }}
+            />
           </div>
           
           <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight">
