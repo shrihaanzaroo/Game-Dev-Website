@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "qFhP2-h-nt5Nxj5tLu-di"
+uri = "file://artifacts/club-website/public/projects/unity-tutorial.png"
+type = "image"
+title = "Unity game engine tutorial series thumbnail"
+
+[[generated]]
+id = "a7w3fmtmFF6uIMmJ5c7GR"
+uri = "file://artifacts/club-website/public/projects/club-website.png"
+type = "image"
+title = "Club website web development code editor thumbnail"

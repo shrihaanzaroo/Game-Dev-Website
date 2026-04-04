@@ -1,0 +1,257 @@
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Calendar, Users, Code, Gamepad2, ArrowRight } from "lucide-react";
+import { SiInstagram } from "react-icons/si";
+
+const FADE_UP = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
+
+const STAGGER_CONTAINER = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+export default function Home() {
+  useEffect(() => {
+    // Force dark mode for the club theme
+    document.documentElement.classList.add('dark');
+  }, []);
+
+  return (
+    <div className="min-h-[100dvh] w-full bg-background text-foreground flex flex-col relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-[40%] right-[10%] w-[30%] h-[30%] bg-secondary/30 blur-[100px] rounded-full pointer-events-none" />
+
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 py-12 md:py-24 z-10 relative">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={FADE_UP}
+          className="flex flex-col items-center text-center space-y-6 mb-16"
+        >
+          <div className="inline-flex items-center justify-center p-3 bg-secondary rounded-2xl mb-4 border border-border/50">
+            <Gamepad2 className="w-10 h-10 text-primary mr-3" />
+            <Code className="w-8 h-8 text-accent" />
+          </div>
+          
+          <h1 className="text-4xl md:text-7xl font-extrabold tracking-tight">
+            Game Dev <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Club</span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-2xl">
+            Los Altos High School
+          </p>
+        </motion.div>
+
+        <Tabs defaultValue="intro" className="w-full">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-12 h-14 bg-secondary/50 border border-border/50 p-1">
+            <TabsTrigger value="intro" className="rounded-md text-sm md:text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300">
+              Intro
+            </TabsTrigger>
+            <TabsTrigger value="members" className="rounded-md text-sm md:text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300">
+              Roster
+            </TabsTrigger>
+            <TabsTrigger value="projects" className="rounded-md text-sm md:text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all duration-300">
+              Projects
+            </TabsTrigger>
+          </TabsList>
+
+          {/* TAB 1: Introduction */}
+          <TabsContent value="intro" className="mt-0 outline-none">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={STAGGER_CONTAINER}
+              className="grid gap-8 md:grid-cols-2"
+            >
+              <motion.div variants={FADE_UP} className="flex flex-col justify-center space-y-6">
+                <h2 className="text-3xl font-bold">Build Real Games. <br/>Build Real Skills.</h2>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  We are a student-run club dedicated to teaching game development through Unity, collaborative projects, and peer learning. Whether you're a seasoned coder or a complete beginner, there's a place for you here.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Button size="lg" className="w-full sm:w-auto font-bold text-md h-14 px-8 bg-primary hover:bg-primary/90 hover:scale-105 transition-all">
+                    Join the Discord
+                  </Button>
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto font-bold text-md h-14 px-8 border-border/50 hover:bg-secondary transition-all" asChild>
+                    <a href="https://instagram.com/lahsunity" target="_blank" rel="noopener noreferrer">
+                      <SiInstagram className="mr-2 h-5 w-5" />
+                      @lahsunity
+                    </a>
+                  </Button>
+                </div>
+              </motion.div>
+
+              <motion.div variants={FADE_UP} className="grid grid-cols-1 gap-4">
+                <Card className="bg-card/40 backdrop-blur-sm border-primary/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-xl">
+                      <Users className="w-6 h-6 mr-3 text-primary" />
+                      Community
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-lg">~25 active members passionate about coding, art, and game design.</p>
+                  </CardContent>
+                </Card>
+                
+                <Card className="bg-card/40 backdrop-blur-sm border-accent/20">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-xl">
+                      <Calendar className="w-6 h-6 mr-3 text-accent" />
+                      Meetings
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-lg">Every Tuesday after school in Room 404.</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </motion.div>
+          </TabsContent>
+
+          {/* TAB 2: Members & Leadership */}
+          <TabsContent value="members" className="mt-0 outline-none">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={STAGGER_CONTAINER}
+              className="space-y-8"
+            >
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold mb-4">Leadership Team</h2>
+                <p className="text-muted-foreground text-lg">The students making it happen.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[
+                  { role: "President", name: "Alex Chen", color: "border-primary/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]" },
+                  { role: "Vice President", name: "Sarah Jenkins", color: "border-accent/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(34,197,94,0.3)]" },
+                  { role: "Lead Developer", name: "Marcus Johnson", color: "border-primary/30", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.2)]" },
+                  { role: "Art Director", name: "Elena Rodriguez", color: "border-purple-500/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]" },
+                  { role: "Social Media Manager", name: "David Kim", color: "border-pink-500/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(236,72,153,0.3)]" }
+                ].map((member, i) => (
+                  <motion.div key={i} variants={FADE_UP} className="h-full">
+                    <Card className={`h-full group bg-card/60 backdrop-blur-sm border ${member.color} transition-all duration-300 ${member.glow} hover:-translate-y-1`}>
+                      <CardHeader>
+                        <CardDescription className="font-semibold tracking-wider uppercase text-xs mb-1">{member.role}</CardDescription>
+                        <CardTitle className="text-xl">{member.name}</CardTitle>
+                      </CardHeader>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div variants={FADE_UP} className="mt-12 flex justify-center">
+                <div className="inline-flex items-center px-6 py-4 rounded-2xl bg-secondary/80 border border-border/50 shadow-inner">
+                  <Users className="w-6 h-6 text-muted-foreground mr-4" />
+                  <span className="text-xl font-medium mr-4">General Members</span>
+                  <Badge variant="secondary" className="text-lg px-3 py-1 bg-background text-foreground font-bold border-primary/20">
+                    ~20 Active
+                  </Badge>
+                </div>
+              </motion.div>
+            </motion.div>
+          </TabsContent>
+
+          {/* TAB 3: Project Portfolio */}
+          <TabsContent value="projects" className="mt-0 outline-none">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={STAGGER_CONTAINER}
+              className="space-y-8"
+            >
+              <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold mb-4">Our Work</h2>
+                <p className="text-muted-foreground text-lg">What we've been building together.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Project 1 */}
+                <motion.div variants={FADE_UP}>
+                  <Card className="overflow-hidden group bg-card/40 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 h-full flex flex-col">
+                    <div className="w-full h-56 md:h-64 overflow-hidden relative">
+                      <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                      <img 
+                        src="/projects/unity-tutorial.png" 
+                        alt="Unity Tutorial Series thumbnail" 
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-2xl group-hover:text-primary transition-colors">Unity Tutorial Series</CardTitle>
+                      <CardDescription className="text-base mt-2 line-clamp-3">
+                        A beginner-friendly video tutorial series teaching Unity game engine basics to new members. Topics cover: scene setup, game objects, scripting in C#, physics, and UI.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline" className="bg-secondary/50">Unity</Badge>
+                        <Badge variant="outline" className="bg-secondary/50">C#</Badge>
+                        <Badge variant="outline" className="bg-secondary/50">Education</Badge>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full group/btn" variant="secondary">
+                        View Project
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+
+                {/* Project 2 */}
+                <motion.div variants={FADE_UP}>
+                  <Card className="overflow-hidden group bg-card/40 backdrop-blur-sm border-border/50 hover:border-accent/50 transition-all duration-500 h-full flex flex-col">
+                    <div className="w-full h-56 md:h-64 overflow-hidden relative">
+                      <div className="absolute inset-0 bg-accent/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                      <img 
+                        src="/projects/club-website.png" 
+                        alt="Club Website project thumbnail" 
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-2xl group-hover:text-accent transition-colors">Club Website</CardTitle>
+                      <CardDescription className="text-base mt-2 line-clamp-3">
+                        This very website! Built by club members to showcase the club's work, projects, and community. A full React + Vite web app serving as our digital home.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="outline" className="bg-secondary/50">React</Badge>
+                        <Badge variant="outline" className="bg-secondary/50">Vite</Badge>
+                        <Badge variant="outline" className="bg-secondary/50">Tailwind</Badge>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button className="w-full group/btn" variant="secondary">
+                        View Project
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+              </div>
+            </motion.div>
+          </TabsContent>
+        </Tabs>
+      </main>
+    </div>
+  );
+}
