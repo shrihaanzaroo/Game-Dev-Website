@@ -69,23 +69,27 @@ export default function Home() {
         </motion.div>
 
         {/* Tabs */}
-        <Tabs defaultValue="intro" className="w-full">
+        <Tabs defaultValue="overview" className="w-full">
           <div className="flex justify-center mb-10">
             <TabsList className="h-12 p-1 rounded-2xl gap-1"
               style={{ background: "rgba(255,255,255,0.55)", backdropFilter: "blur(12px)", border: "1px solid rgba(255,255,255,0.85)", boxShadow: "0 4px 24px rgba(59,130,246,0.08)" }}
             >
-              {["intro", "members", "projects"].map((tab) => (
-                <TabsTrigger key={tab} value={tab}
-                  className="px-6 rounded-xl capitalize text-sm font-semibold text-slate-500 transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-md data-[state=active]:shadow-blue-100"
+              {[
+                { value: "overview", label: "Overview" },
+                { value: "about", label: "About Us" },
+                { value: "projects", label: "Projects" },
+              ].map(({ value, label }) => (
+                <TabsTrigger key={value} value={value}
+                  className="px-6 rounded-xl text-sm font-semibold text-slate-500 transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-md data-[state=active]:shadow-blue-100"
                 >
-                  {tab === "members" ? "Roster" : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  {label}
                 </TabsTrigger>
               ))}
             </TabsList>
           </div>
 
-          {/* TAB 1: Intro */}
-          <TabsContent value="intro" className="mt-0 outline-none">
+          {/* TAB 1: Overview */}
+          <TabsContent value="overview" className="mt-0 outline-none">
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
               className="grid gap-8 md:grid-cols-2 items-center"
             >
@@ -135,8 +139,8 @@ export default function Home() {
             </motion.div>
           </TabsContent>
 
-          {/* TAB 2: Roster */}
-          <TabsContent value="members" className="mt-0 outline-none">
+          {/* TAB 2: About Us */}
+          <TabsContent value="about" className="mt-0 outline-none">
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="space-y-10">
               <motion.div variants={FADE_UP} className="text-center">
                 <h2 className="text-3xl font-bold text-slate-800 mb-2">Leadership Team</h2>
