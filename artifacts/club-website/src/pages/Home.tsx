@@ -139,8 +139,8 @@ export default function Home() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                  { role: "President", name: "Alex Chen", color: "border-primary/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]" },
-                  { role: "Vice President", name: "Sarah Jenkins", color: "border-accent/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(34,197,94,0.3)]" },
+                  { role: "President", name: "Justin Ding", color: "border-primary/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]" },
+                  { role: "Vice President", name: "Shrihaan Zaroo", color: "border-accent/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(34,197,94,0.3)]" },
                   { role: "Lead Developer", name: "Marcus Johnson", color: "border-primary/30", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.2)]" },
                   { role: "Art Director", name: "Elena Rodriguez", color: "border-purple-500/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]" },
                   { role: "Social Media Manager", name: "David Kim", color: "border-pink-500/50", glow: "group-hover:shadow-[0_0_30px_-5px_rgba(236,72,153,0.3)]" }
