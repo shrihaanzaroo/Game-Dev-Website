@@ -92,9 +92,9 @@ export default function Home() {
                     Join the Discord
                   </Button>
                   <Button variant="outline" size="lg" className="w-full sm:w-auto font-bold text-md h-14 px-8 border-border/50 hover:bg-secondary transition-all" asChild>
-                    <a href="https://instagram.com/lahsunity" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com/lahs_game_dev_club/" target="_blank" rel="noopener noreferrer">
                       <SiInstagram className="mr-2 h-5 w-5" />
-                      @lahsunity
+                      @lahs_game_dev_club
                     </a>
                   </Button>
                 </div>
