@@ -41,7 +41,7 @@ const MEMBERS = [
   { role: "President",      name: "Justin Ding",    initials: "JD", from: "#3b82f6", to: "#1d4ed8" },
   { role: "Vice President", name: "Shrihaan Zaroo",  initials: "SZ", from: "#10b981", to: "#047857" },
   { role: "Secretary",      name: "William Xing",    initials: "WX", from: "#8b5cf6", to: "#6d28d9" },
-  { role: "Secretary",      name: "Alan Tang",       initials: "AT", from: "#8b5cf6", to: "#6d28d9" },
+  { role: "Treasurer",      name: "Alan Tang",       initials: "AT", from: "#8b5cf6", to: "#6d28d9" },
 ];
 
 const INFO_ROWS = [
