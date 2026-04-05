@@ -19,10 +19,10 @@ export function useMemberCount() {
         const text = await res.text();
         const rows = text.trim().split("\n");
 
-        // Read cell C2 (row index 1, column index 2) — the tally cell
+        // Read cell D2 (row index 1, column index 3) — the member tally cell
         const row2 = rows[1]?.split(",") ?? [];
-        const cellC2 = row2[2]?.replace(/^"|"$/g, "").trim();
-        const tally = parseInt(cellC2, 10);
+        const cellD2 = row2[3]?.replace(/^"|"$/g, "").trim();
+        const tally = parseInt(cellD2, 10);
 
         if (!isNaN(tally) && !cancelled) setCount(tally);
       } catch {

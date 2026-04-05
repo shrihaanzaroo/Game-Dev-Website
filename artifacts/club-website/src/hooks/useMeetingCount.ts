@@ -19,10 +19,10 @@ export function useMeetingCount() {
         const text = await res.text();
         const rows = text.trim().split("\n");
 
-        // Read cell D2 (row index 1, column index 3) — the meeting count cell
+        // Read cell E2 (row index 1, column index 4) — the meeting count cell
         const row2 = rows[1]?.split(",") ?? [];
-        const cellD2 = row2[3]?.replace(/^"|"$/g, "").trim();
-        const tally = parseInt(cellD2, 10);
+        const cellE2 = row2[4]?.replace(/^"|"$/g, "").trim();
+        const tally = parseInt(cellE2, 10);
 
         if (!isNaN(tally) && !cancelled) setCount(tally);
       } catch {
