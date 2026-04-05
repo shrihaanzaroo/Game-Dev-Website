@@ -33,7 +33,7 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 /* ─── Static data ─── */
 const STATS = [
   { label: "Members",  value: 28, suffix: "", textGradient: "linear-gradient(135deg,#3b82f6,#6366f1)", ring: "rgba(99,102,241,0.5)",   glow: "rgba(99,102,241,0.22)",   floatDelay: 0   },
-  { label: "Meetings", value: 4,  suffix: "",  textGradient: "linear-gradient(135deg,#10b981,#06b6d4)", ring: "rgba(20,184,166,0.5)",   glow: "rgba(20,184,166,0.22)",   floatDelay: 0.7 },
+  { label: "Meetings", value: 5,  suffix: "",  textGradient: "linear-gradient(135deg,#10b981,#06b6d4)", ring: "rgba(20,184,166,0.5)",   glow: "rgba(20,184,166,0.22)",   floatDelay: 0.7 },
   { label: "Projects", value: 0,  suffix: "",  textGradient: "linear-gradient(135deg,#8b5cf6,#ec4899)", ring: "rgba(168,85,247,0.5)",   glow: "rgba(168,85,247,0.22)",   floatDelay: 1.4 },
 ];
 
