@@ -6,7 +6,7 @@ import { Calendar, MapPin, ArrowRight, Gamepad2, Star } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
 import { useMeetingCount } from "@/hooks/useMeetingCount";
-import clubLogo from "@assets/gamedev_1775281169605.png";
+import clubLogo from "@assets/gamedev_clean.png";
 
 /* ─── Animation variants ─── */
 const FADE_UP = {
@@ -79,7 +79,7 @@ export default function Home() {
         >
           <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <img src={clubLogo} alt="Logo" className="w-12 h-12 object-contain" style={{ mixBlendMode: "multiply" }} />
+              <img src={clubLogo} alt="Logo" className="w-12 h-12 object-contain" />
               <span className="font-black text-base tracking-tight">
                 <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
                 <span className="text-slate-700"> Club</span>
@@ -129,7 +129,6 @@ export default function Home() {
                 src={clubLogo}
                 alt="LAHS Game Dev Club Logo"
                 className="w-96 h-auto object-contain relative"
-                style={{ mixBlendMode: "multiply" }}
               />
             </motion.div>
 
