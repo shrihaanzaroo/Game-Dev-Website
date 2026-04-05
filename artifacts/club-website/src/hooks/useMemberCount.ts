@@ -30,10 +30,10 @@ export function useMemberCount() {
 
         if (headerIdx === -1) throw new Error("Header row not found");
 
-        // Count non-empty rows after the header
+        // Count non-empty rows after the header, excluding "(Home)" remote duplicates
         const memberRows = rows.slice(headerIdx + 1).filter((row) => {
           const first = row.split(",")[0].replace(/^"|"$/g, "").trim();
-          return first.length > 0;
+          return first.length > 0 && !first.toLowerCase().includes("(home)");
         });
 
         if (!cancelled) setCount(memberRows.length);
