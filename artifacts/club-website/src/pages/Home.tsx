@@ -6,6 +6,7 @@ import { Calendar, MapPin, ArrowRight, Gamepad2, Star, ExternalLink, Download, B
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
 import { useMeetingCount } from "@/hooks/useMeetingCount";
+import { useLeadership } from "@/hooks/useLeadership";
 import clubLogo from "@assets/gamedev_clean.png";
 
 /* ─── Animation variants ─── */
@@ -94,6 +95,7 @@ export default function Home() {
   useEffect(() => { document.documentElement.classList.remove("dark"); }, []);
   const { count: liveMembers, loading: membersLoading } = useMemberCount();
   const { count: liveMeetings, loading: meetingsLoading } = useMeetingCount();
+  const { members: liveLeadership, loading: leadershipLoading } = useLeadership();
 
   return (
     <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
@@ -294,27 +296,40 @@ export default function Home() {
               </motion.div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {MEMBERS.map((m, i) => (
-                  <motion.div key={i} variants={FADE_UP}
-                    className="group rounded-3xl p-6 flex flex-col items-center text-center gap-4 cursor-default transition-all duration-300 hover:-translate-y-1.5"
-                    style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
-                    whileHover={{ boxShadow: "0 16px 48px rgba(15,23,42,0.1)" }}
-                  >
-                    <div className="relative">
-                      <div className="absolute inset-0 rounded-full blur-lg scale-125 opacity-50 group-hover:opacity-80 transition-opacity"
-                        style={{ background: `linear-gradient(135deg,${m.from}80,${m.to}80)` }} />
-                      <div className="relative w-16 h-16 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg"
-                        style={{ background: `linear-gradient(135deg,${m.from},${m.to})` }}
+                {leadershipLoading && !liveLeadership
+                  ? Array.from({ length: 4 }).map((_, i) => (
+                      <div key={i} className="rounded-3xl p-6 flex flex-col items-center gap-4 animate-pulse"
+                        style={{ background: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.95)" }}
                       >
-                        {m.initials}
+                        <div className="w-16 h-16 rounded-full bg-slate-200" />
+                        <div className="space-y-2 w-full flex flex-col items-center">
+                          <div className="h-2.5 w-16 rounded-full bg-slate-200" />
+                          <div className="h-3.5 w-24 rounded-full bg-slate-200" />
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-bold uppercase tracking-widest mb-1" style={{ color: m.from }}>{m.role}</p>
-                      <p className="text-slate-800 font-bold">{m.name}</p>
-                    </div>
-                  </motion.div>
-                ))}
+                    ))
+                  : (liveLeadership ?? MEMBERS).map((m, i) => (
+                      <motion.div key={i} variants={FADE_UP}
+                        className="group rounded-3xl p-6 flex flex-col items-center text-center gap-4 cursor-default transition-all duration-300 hover:-translate-y-1.5"
+                        style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
+                        whileHover={{ boxShadow: "0 16px 48px rgba(15,23,42,0.1)" }}
+                      >
+                        <div className="relative">
+                          <div className="absolute inset-0 rounded-full blur-lg scale-125 opacity-50 group-hover:opacity-80 transition-opacity"
+                            style={{ background: `linear-gradient(135deg,${m.from}80,${m.to}80)` }} />
+                          <div className="relative w-16 h-16 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg"
+                            style={{ background: `linear-gradient(135deg,${m.from},${m.to})` }}
+                          >
+                            {m.initials}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-[11px] font-bold uppercase tracking-widest mb-1" style={{ color: m.from }}>{m.role}</p>
+                          <p className="text-slate-800 font-bold">{m.name}</p>
+                        </div>
+                      </motion.div>
+                    ))
+                }
               </div>
 
               <motion.div variants={FADE_UP}>
