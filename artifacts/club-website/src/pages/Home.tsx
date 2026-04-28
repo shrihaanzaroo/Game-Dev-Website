@@ -7,6 +7,7 @@ import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
 import { useMeetingCount } from "@/hooks/useMeetingCount";
 import { useLeadership } from "@/hooks/useLeadership";
+import { useProjects } from "@/hooks/useProjects";
 import clubLogo from "@assets/gamedev_clean.png";
 
 /* ─── Animation variants ─── */
@@ -96,6 +97,7 @@ export default function Home() {
   const { count: liveMembers, loading: membersLoading } = useMemberCount();
   const { count: liveMeetings, loading: meetingsLoading } = useMeetingCount();
   const { members: liveLeadership, loading: leadershipLoading } = useLeadership();
+  const { projects, loading: projectsLoading } = useProjects();
 
   return (
     <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden"
@@ -446,19 +448,97 @@ export default function Home() {
 
           {/* ── TAB: Projects ── */}
           <TabsContent value="projects" className="mt-0 outline-none pt-10">
-            <motion.div initial="hidden" animate="visible" variants={FADE_UP}
-              className="flex flex-col items-center justify-center py-28 rounded-3xl text-center gap-5"
-              style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.9)" }}
-            >
-              <div className="w-16 h-16 rounded-3xl flex items-center justify-center shadow-lg"
-                style={{ background: "linear-gradient(135deg,#2563eb,#06b6d4)" }}
-              >
-                <Gamepad2 className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <h3 className="text-xl font-black text-slate-700 mb-1">Projects coming soon</h3>
-                <p className="text-slate-400 text-sm max-w-xs">Our first batch of games is in the works. Check back soon!</p>
-              </div>
+            <motion.div initial="hidden" animate="visible" variants={STAGGER} className="space-y-10">
+
+              {/* Header */}
+              <motion.div variants={FADE_UP} className="text-center">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Member Work</p>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight mb-3">Projects</h2>
+                <p className="text-slate-500 max-w-md mx-auto">Games and projects built by our members. Updates live from the club sheet.</p>
+              </motion.div>
+
+              {/* Loading skeletons */}
+              {projectsLoading && projects.length === 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} className="rounded-3xl p-6 animate-pulse"
+                      style={{ background: "rgba(255,255,255,0.7)", border: "1px solid rgba(255,255,255,0.95)" }}
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-2xl bg-slate-200" />
+                        <div className="h-4 w-28 rounded-full bg-slate-200" />
+                      </div>
+                      <div className="h-3 w-full rounded-full bg-slate-100 mb-2" />
+                      <div className="h-3 w-2/3 rounded-full bg-slate-100" />
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Project cards */}
+              {!projectsLoading && projects.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {projects.map((p, i) => {
+                    const colors = [
+                      { from: "#2563eb", to: "#06b6d4" },
+                      { from: "#8b5cf6", to: "#ec4899" },
+                      { from: "#10b981", to: "#06b6d4" },
+                      { from: "#f59e0b", to: "#ef4444" },
+                      { from: "#3b82f6", to: "#6366f1" },
+                    ];
+                    const c = colors[i % colors.length];
+                    const initials = p.creator.split(" ").filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join("");
+                    const hasLink = p.link.startsWith("http");
+                    const CardEl = hasLink ? "a" : "div";
+                    return (
+                      <motion.div key={i} variants={FADE_UP}>
+                        <CardEl
+                          {...(hasLink ? { href: p.link, target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className={`group rounded-3xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl block`}
+                          style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-sm shrink-0"
+                                style={{ background: `linear-gradient(135deg,${c.from},${c.to})` }}
+                              >
+                                {initials}
+                              </div>
+                              <div>
+                                <p className="text-[11px] font-bold uppercase tracking-widest mb-0.5" style={{ color: c.from }}>Creator</p>
+                                <p className="text-slate-800 font-bold text-sm">{p.creator}</p>
+                              </div>
+                            </div>
+                            {hasLink && <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-slate-400 transition-colors shrink-0" />}
+                          </div>
+                          {hasLink && (
+                            <p className="text-slate-400 text-xs truncate">{p.link}</p>
+                          )}
+                        </CardEl>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Empty state */}
+              {!projectsLoading && projects.length === 0 && (
+                <motion.div variants={FADE_UP}
+                  className="flex flex-col items-center justify-center py-28 rounded-3xl text-center gap-5"
+                  style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.9)" }}
+                >
+                  <div className="w-16 h-16 rounded-3xl flex items-center justify-center shadow-lg"
+                    style={{ background: "linear-gradient(135deg,#2563eb,#06b6d4)" }}
+                  >
+                    <Gamepad2 className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-slate-700 mb-1">Projects coming soon</h3>
+                    <p className="text-slate-400 text-sm max-w-xs">Our first batch of games is in the works. Check back soon!</p>
+                  </div>
+                </motion.div>
+              )}
+
             </motion.div>
           </TabsContent>
 
