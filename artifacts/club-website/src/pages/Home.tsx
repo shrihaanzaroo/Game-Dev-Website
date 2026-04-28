@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Calendar, MapPin, ArrowRight, Gamepad2, Star } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, Gamepad2, Star, ExternalLink, Download, BookOpen, PlayCircle } from "lucide-react";
 import { SiInstagram } from "react-icons/si";
 import { useMemberCount } from "@/hooks/useMemberCount";
 import { useMeetingCount } from "@/hooks/useMeetingCount";
@@ -50,8 +50,45 @@ const INFO_ROWS = [
   { icon: <Gamepad2  className="w-4 h-4" />, label: "Unity · Art · Coding",     sub: "We cover",       color: "#3b82f6" },
 ];
 
+const RESOURCES = [
+  {
+    icon: <Download className="w-5 h-5" />,
+    label: "Step 1",
+    title: "Unity Installation Guide",
+    desc: "Get Unity set up on your computer with our step-by-step guide.",
+    href: "https://drive.google.com/open?id=1jgs_E7-Ffqjp3UI_7mGeJSzV0oESmP6NPIty45bmAYo",
+    color: "#2563eb",
+    colorTo: "#06b6d4",
+  },
+  {
+    icon: <BookOpen className="w-5 h-5" />,
+    label: "Step 2",
+    title: "How to Use Unity",
+    desc: "A slideshow walkthrough of Unity's interface and core concepts.",
+    href: "https://docs.google.com/presentation/d/1g1lTtelitDJ8_Uh08xx5wRwz0tY7MScHx3F1Ds50zfg/edit?slide=id.p#slide=id.p",
+    color: "#8b5cf6",
+    colorTo: "#ec4899",
+  },
+  {
+    icon: <PlayCircle className="w-5 h-5" />,
+    label: "Inspiration",
+    title: "Example Custom Project",
+    desc: "A platformer game made by a club member — see what's possible.",
+    href: "https://play.unity.com/en/games/99362ea1-daf9-48e3-b3e2-cd79951e6f50/platformer",
+    color: "#10b981",
+    colorTo: "#06b6d4",
+  },
+];
+
 /* ─── Dot-grid SVG background ─── */
 const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1' cy='1' r='1' fill='%233b82f6' fill-opacity='0.07'/%3E%3C/svg%3E")`;
+
+const TABS = [
+  { value: "overview",   label: "Overview"    },
+  { value: "about",      label: "About Us"    },
+  { value: "newmembers", label: "New Members" },
+  { value: "projects",   label: "Projects"    },
+];
 
 export default function Home() {
   useEffect(() => { document.documentElement.classList.remove("dark"); }, []);
@@ -71,6 +108,7 @@ export default function Home() {
         style={{ background: "radial-gradient(circle, rgba(16,185,129,0.14) 0%, transparent 70%)" }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%)" }} />
+
       <Tabs defaultValue="overview" className="flex flex-col flex-1 z-10 relative">
 
         {/* ── NAV ── */}
@@ -89,7 +127,7 @@ export default function Home() {
             <TabsList className="h-9 p-0.5 gap-0 rounded-xl"
               style={{ background: "rgba(241,245,249,0.8)", border: "1px solid rgba(148,163,184,0.2)" }}
             >
-              {[{ value: "overview", label: "Overview" }, { value: "about", label: "About Us" }, { value: "projects", label: "Projects" }].map(({ value, label }) => (
+              {TABS.map(({ value, label }) => (
                 <TabsTrigger key={value} value={value}
                   className="px-4 h-8 rounded-[10px] text-sm font-semibold text-slate-500 transition-all duration-200 data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm data-[state=active]:shadow-blue-100/80"
                 >
@@ -101,59 +139,50 @@ export default function Home() {
         </header>
 
         {/* ── CONTENT ── */}
-        <main className="flex-1 w-full max-w-5xl mx-auto px-5 pt-2 pb-20">
-
-          {/* Hero */}
-          <motion.div initial="hidden" animate="visible" variants={FADE_UP}
-            className="flex flex-col items-center text-center mb-10"
-          >
-            {/* Hero logo — with gradient bubble */}
-            <motion.div
-              className="-mb-36 -mt-20 relative flex items-center justify-center"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              {/* Animated gradient orb */}
-              <motion.div
-                className="absolute rounded-full blur-3xl"
-                style={{
-                  width: "75%",
-                  height: "55%",
-                  top: "20%",
-                  background: "radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.3) 70%, transparent 100%)",
-                }}
-                animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-              />
-              <img
-                src={clubLogo}
-                alt="LAHS Game Dev Club Logo"
-                className="w-96 h-auto object-contain relative"
-              />
-            </motion.div>
-
-            {/* Pill label */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
-              style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", color: "#2563eb" }}
-            >
-              <Star className="w-3 h-3 fill-current" />
-              Los Altos High School
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
-              <span style={{ background: "linear-gradient(100deg,#2563eb 0%,#06b6d4 50%,#10b981 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Game Dev
-              </span>{" "}
-              <span className="text-slate-800">Club</span>
-            </h1>
-
-            <p className="text-slate-500 text-lg md:text-xl max-w-md leading-relaxed">
-              Building real games, real skills, and real friendships — together.
-            </p>
-          </motion.div>
+        <main className="flex-1 w-full max-w-5xl mx-auto px-5 pb-20">
 
           {/* ── TAB: Overview ── */}
-          <TabsContent value="overview" className="mt-0 outline-none">
+          <TabsContent value="overview" className="mt-0 outline-none pt-2">
+
+            {/* Hero */}
+            <motion.div initial="hidden" animate="visible" variants={FADE_UP}
+              className="flex flex-col items-center text-center mb-10"
+            >
+              <motion.div
+                className="-mb-36 -mt-20 relative flex items-center justify-center"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <motion.div
+                  className="absolute rounded-full blur-3xl"
+                  style={{
+                    width: "75%", height: "55%", top: "20%",
+                    background: "radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.3) 70%, transparent 100%)",
+                  }}
+                  animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <img src={clubLogo} alt="LAHS Game Dev Club Logo" className="w-96 h-auto object-contain relative" />
+              </motion.div>
+
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
+                style={{ background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", color: "#2563eb" }}
+              >
+                <Star className="w-3 h-3 fill-current" />
+                Los Altos High School
+              </div>
+
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
+                <span style={{ background: "linear-gradient(100deg,#2563eb 0%,#06b6d4 50%,#10b981 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  Game Dev
+                </span>{" "}
+                <span className="text-slate-800">Club</span>
+              </h1>
+
+              <p className="text-slate-500 text-lg md:text-xl max-w-md leading-relaxed">
+                Building real games, real skills, and real friendships — together.
+              </p>
+            </motion.div>
 
             {/* Floating stat circles */}
             <motion.div initial="hidden" animate="visible" variants={STAGGER}
@@ -174,10 +203,8 @@ export default function Home() {
                 return (
                   <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
                     <div className="relative">
-                      {/* Soft outer glow */}
                       <div className="absolute inset-0 rounded-full blur-2xl scale-125 opacity-60"
                         style={{ background: `radial-gradient(circle, ${glow}, transparent)` }} />
-                      {/* Glass circle */}
                       <motion.div
                         className="relative w-28 h-28 md:w-32 md:h-32 rounded-full flex flex-col items-center justify-center gap-0.5"
                         animate={{ y: [0, -8, 0] }}
@@ -206,8 +233,6 @@ export default function Home() {
 
             {/* Bento grid */}
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="grid md:grid-cols-5 gap-4">
-
-              {/* Mission — wide left card */}
               <motion.div variants={FADE_UP} className="md:col-span-3 rounded-3xl p-8 flex flex-col justify-between gap-6"
                 style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 32px rgba(15,23,42,0.07)" }}
               >
@@ -240,7 +265,6 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* Info rows — right column */}
               <motion.div variants={FADE_UP} className="md:col-span-2 flex flex-col gap-4">
                 {INFO_ROWS.map(({ icon, label, sub, color }) => (
                   <div key={sub} className="flex-1 rounded-3xl p-5 flex items-center gap-4 transition-all duration-200 hover:-translate-y-0.5"
@@ -252,7 +276,7 @@ export default function Home() {
                       {icon}
                     </div>
                     <div>
-                      <p className="text-[11px] font-bold uppercase tracking-widest mb-0.5" style={{ color: `${color}` }}>{sub}</p>
+                      <p className="text-[11px] font-bold uppercase tracking-widest mb-0.5" style={{ color }}>{sub}</p>
                       <p className="text-slate-700 font-semibold text-sm">{label}</p>
                     </div>
                   </div>
@@ -262,7 +286,7 @@ export default function Home() {
           </TabsContent>
 
           {/* ── TAB: About Us ── */}
-          <TabsContent value="about" className="mt-0 outline-none">
+          <TabsContent value="about" className="mt-0 outline-none pt-10">
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="space-y-10">
               <motion.div variants={FADE_UP} className="text-center">
                 <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Our Team</p>
@@ -274,7 +298,7 @@ export default function Home() {
                   <motion.div key={i} variants={FADE_UP}
                     className="group rounded-3xl p-6 flex flex-col items-center text-center gap-4 cursor-default transition-all duration-300 hover:-translate-y-1.5"
                     style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
-                    whileHover={{ boxShadow: `0 16px 48px rgba(15,23,42,0.1)` }}
+                    whileHover={{ boxShadow: "0 16px 48px rgba(15,23,42,0.1)" }}
                   >
                     <div className="relative">
                       <div className="absolute inset-0 rounded-full blur-lg scale-125 opacity-50 group-hover:opacity-80 transition-opacity"
@@ -293,7 +317,6 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* General members banner */}
               <motion.div variants={FADE_UP}>
                 <div className="rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
                   style={{ background: "linear-gradient(135deg,rgba(37,99,235,0.07),rgba(16,185,129,0.07))", border: "1px solid rgba(59,130,246,0.12)" }}
@@ -309,7 +332,7 @@ export default function Home() {
                       ))}
                     </div>
                     <span className="text-2xl font-black text-slate-800">
-                      {liveMembers !== null ? liveMembers : "25+"} <span className="text-slate-400 text-sm font-semibold">active</span>
+                      {liveMembers !== null ? liveMembers : "28"} <span className="text-slate-400 text-sm font-semibold">active</span>
                     </span>
                   </div>
                 </div>
@@ -317,8 +340,97 @@ export default function Home() {
             </motion.div>
           </TabsContent>
 
+          {/* ── TAB: New Members ── */}
+          <TabsContent value="newmembers" className="mt-0 outline-none pt-10">
+            <motion.div initial="hidden" animate="visible" variants={STAGGER} className="space-y-10">
+
+              {/* Header */}
+              <motion.div variants={FADE_UP} className="text-center">
+                <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Welcome</p>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight mb-3">New Members</h2>
+                <p className="text-slate-500 max-w-md mx-auto">Everything you need to get started with the Game Dev Club — join up, install Unity, and dive in.</p>
+              </motion.div>
+
+              {/* Join the Club */}
+              <motion.div variants={FADE_UP}>
+                <div className="rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
+                  style={{ background: "linear-gradient(135deg,rgba(37,99,235,0.08),rgba(6,182,212,0.08))", border: "1px solid rgba(37,99,235,0.15)", backdropFilter: "blur(20px)" }}
+                >
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">First Step</p>
+                    <h3 className="text-xl font-black text-slate-800 mb-1">Join the Club</h3>
+                    <p className="text-slate-500 text-sm">Fill out the sign-up form to become an official member.</p>
+                  </div>
+                  <Button size="lg" asChild
+                    className="h-11 px-7 rounded-2xl font-bold text-white border-0 shadow-lg shadow-blue-200 hover:scale-105 active:scale-100 transition-all shrink-0"
+                    style={{ background: "linear-gradient(135deg,#2563eb,#06b6d4)" }}
+                  >
+                    <a href="https://forms.gle/wdQWLgah5MKrmG2x8" target="_blank" rel="noopener noreferrer">
+                      Sign Up Now <ArrowRight className="ml-1.5 w-4 h-4" />
+                    </a>
+                  </Button>
+                </div>
+              </motion.div>
+
+              {/* Resource cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {RESOURCES.map((r) => (
+                  <motion.a key={r.title} variants={FADE_UP}
+                    href={r.href} target="_blank" rel="noopener noreferrer"
+                    className="group rounded-3xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+                    style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shrink-0"
+                        style={{ background: `linear-gradient(135deg,${r.color},${r.colorTo})` }}
+                      >
+                        {r.icon}
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-slate-400 transition-colors mt-1" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-widest mb-1" style={{ color: r.color }}>{r.label}</p>
+                      <p className="text-slate-800 font-bold mb-1">{r.title}</p>
+                      <p className="text-slate-500 text-sm leading-relaxed">{r.desc}</p>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+
+              {/* Tutorial embed */}
+              <motion.div variants={FADE_UP}>
+                <div className="rounded-3xl overflow-hidden"
+                  style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 32px rgba(15,23,42,0.07)" }}
+                >
+                  <div className="px-6 pt-6 pb-4 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-purple-400 mb-1">Try It Out</p>
+                      <h3 className="text-lg font-black text-slate-800">Tutorial Example</h3>
+                      <p className="text-slate-500 text-sm">Play a Unity tutorial game right in your browser.</p>
+                    </div>
+                    <a href="https://play.unity.com/api/v1/games/game/7bdd8f13-edc8-456b-b49e-d539af8efe38/build/latest/frame"
+                      target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors"
+                    >
+                      Open full screen <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                  <div className="w-full" style={{ aspectRatio: "16/9" }}>
+                    <iframe
+                      src="https://play.unity.com/api/v1/games/game/7bdd8f13-edc8-456b-b49e-d539af8efe38/build/latest/frame"
+                      className="w-full h-full border-0"
+                      allow="fullscreen"
+                      title="Unity Tutorial Example"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+            </motion.div>
+          </TabsContent>
+
           {/* ── TAB: Projects ── */}
-          <TabsContent value="projects" className="mt-0 outline-none">
+          <TabsContent value="projects" className="mt-0 outline-none pt-10">
             <motion.div initial="hidden" animate="visible" variants={FADE_UP}
               className="flex flex-col items-center justify-center py-28 rounded-3xl text-center gap-5"
               style={{ background: "rgba(255,255,255,0.5)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.9)" }}
