@@ -115,9 +115,9 @@ export default function Home() {
         <header className="sticky top-0 z-50 w-full"
           style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(20px) saturate(180%)", borderBottom: "1px solid rgba(148,163,184,0.15)", boxShadow: "0 1px 40px rgba(15,23,42,0.06)" }}
         >
-          <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
+          <div className="max-w-5xl mx-auto px-5 h-[76px] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <img src={clubLogo} alt="Logo" className="w-12 h-12 object-contain" />
+              <img src={clubLogo} alt="Logo" className="w-[72px] h-[72px] object-contain" />
               <span className="font-black text-base tracking-tight">
                 <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
                 <span className="text-slate-700"> Club</span>
