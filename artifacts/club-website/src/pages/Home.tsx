@@ -86,7 +86,7 @@ const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 const TABS = [
   { value: "overview",   label: "Overview"    },
   { value: "about",      label: "About Us"    },
-  { value: "newmembers", label: "New Members" },
+  { value: "newmembers", label: "Get Started" },
   { value: "projects",   label: "Projects"    },
 ];
 
