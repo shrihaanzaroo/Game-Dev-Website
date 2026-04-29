@@ -452,7 +452,7 @@ export default function Home() {
               <motion.div variants={FADE_UP} className="text-center">
                 <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2">Member Work</p>
                 <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight mb-3">Projects</h2>
-                <p className="text-slate-500 max-w-md mx-auto">Games and projects built by our members. Updates live from the club sheet.</p>
+                <p className="text-slate-500 max-w-md mx-auto">Games and projects built by our members.</p>
               </motion.div>
 
               {/* Loading skeletons */}
