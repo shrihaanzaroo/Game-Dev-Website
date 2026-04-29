@@ -78,8 +78,7 @@ export function useLeadership() {
     }
 
     fetchLeadership();
-    const interval = setInterval(fetchLeadership, 5 * 60 * 1000);
-    return () => { cancelled = true; clearInterval(interval); };
+    return () => { cancelled = true; };
   }, []);
 
   return { members, loading };

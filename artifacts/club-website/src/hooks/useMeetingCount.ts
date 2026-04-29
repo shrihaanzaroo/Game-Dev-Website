@@ -33,8 +33,7 @@ export function useMeetingCount() {
     }
 
     fetchCount();
-    const interval = setInterval(fetchCount, 5 * 60 * 1000);
-    return () => { cancelled = true; clearInterval(interval); };
+    return () => { cancelled = true; };
   }, []);
 
   return { count, loading };

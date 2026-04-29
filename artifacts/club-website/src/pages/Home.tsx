@@ -121,7 +121,7 @@ export default function Home() {
         >
           <div className="max-w-5xl mx-auto px-5 h-[100px] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <img src={clubLogo} alt="Logo" className="w-[96px] h-[96px] object-contain" />
+              <img src={clubLogo} alt="Logo" className="w-[192px] h-[192px] object-contain" />
               <span className="font-black text-base tracking-tight">
                 <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
                 <span className="text-slate-700"> Club</span>
@@ -183,9 +183,7 @@ export default function Home() {
                 <span className="text-slate-800">Club</span>
               </h1>
 
-              <p className="text-slate-500 text-lg md:text-xl max-w-md leading-relaxed">
-                Building real games, real skills, and real friendships — together.
-              </p>
+
             </motion.div>
 
             {/* Floating stat circles */}

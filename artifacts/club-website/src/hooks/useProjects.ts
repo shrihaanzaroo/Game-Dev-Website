@@ -43,8 +43,7 @@ export function useProjects() {
     }
 
     fetchProjects();
-    const interval = setInterval(fetchProjects, 60 * 1000);
-    return () => { cancelled = true; clearInterval(interval); };
+    return () => { cancelled = true; };
   }, []);
 
   return { projects, loading };
