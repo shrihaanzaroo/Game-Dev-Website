@@ -495,20 +495,23 @@ export default function Home() {
                           className={`group rounded-3xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl block`}
                           style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.95)", boxShadow: "0 4px 24px rgba(15,23,42,0.06)" }}
                         >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
+                          <div className="flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-3 min-w-0">
                               <div className="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-sm shrink-0"
                                 style={{ background: `linear-gradient(135deg,${c.from},${c.to})` }}
                               >
                                 {initials}
                               </div>
-                              <div>
+                              <div className="min-w-0">
                                 <p className="text-[11px] font-bold uppercase tracking-widest mb-0.5" style={{ color: c.from }}>Creator</p>
                                 <p className="text-slate-800 font-bold text-sm">{p.creator}</p>
                               </div>
                             </div>
                             {hasLink && <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-slate-400 transition-colors shrink-0" />}
                           </div>
+                          {p.title && (
+                            <p className="text-slate-700 font-semibold text-sm">{p.title}</p>
+                          )}
                           {hasLink && (
                             <p className="text-slate-400 text-xs truncate">{p.link}</p>
                           )}

@@ -6,6 +6,7 @@ const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?forma
 
 export interface Project {
   creator: string;
+  title: string;
   link: string;
 }
 
@@ -28,9 +29,10 @@ export function useProjects() {
           .map((row) => {
             const cols = row.split(",").map((c) => c.replace(/^"|"$/g, "").trim());
             const creator = cols[0];
-            const link = cols[1] ?? "";
+            const title = cols[1] ?? "";
+            const link = cols[2] ?? "";
             if (!creator) return null;
-            return { creator, link };
+            return { creator, title, link };
           })
           .filter(Boolean) as Project[];
 
