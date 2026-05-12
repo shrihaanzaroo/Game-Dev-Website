@@ -47,7 +47,7 @@ const MEMBERS = [
 ];
 
 const INFO_ROWS = [
-  { icon: <Calendar className="w-4 h-4" />, label: "Every Wednesday at lunch", sub: "Weekly meetings", color: "#10b981" },
+  { icon: <Calendar className="w-4 h-4" />, label: "Every Wednesday at Lunch", sub: "Weekly meetings", color: "#10b981" },
   { icon: <MapPin    className="w-4 h-4" />, label: "Room 923",                 sub: "Location",       color: "#8b5cf6" },
   { icon: <Gamepad2  className="w-4 h-4" />, label: "Unity · Art · Coding",     sub: "We cover",       color: "#3b82f6" },
 ];
