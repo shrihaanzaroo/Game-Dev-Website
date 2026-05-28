@@ -194,14 +194,17 @@ export default function Home() {
                 const resolved =
                   label === "Members" && liveMembers !== null ? liveMembers :
                   label === "Meetings" && liveMeetings !== null ? liveMeetings :
+                  label === "Projects" && !projectsLoading ? projects.length :
                   value;
                 const sfx =
                   (label === "Members" && liveMembers !== null) ||
-                  (label === "Meetings" && liveMeetings !== null)
+                  (label === "Meetings" && liveMeetings !== null) ||
+                  (label === "Projects" && !projectsLoading)
                     ? "" : suffix;
                 const isLoading =
                   (label === "Members" && membersLoading) ||
-                  (label === "Meetings" && meetingsLoading);
+                  (label === "Meetings" && meetingsLoading) ||
+                  (label === "Projects" && projectsLoading);
                 return (
                   <motion.div key={label} variants={FADE_UP} className="flex flex-col items-center gap-3">
                     <div className="relative">
