@@ -104,10 +104,9 @@ export default function Home() {
   
   /* ─── Dramatic Hero Centerpiece Transforms ─── */
   const logoY = useTransform(scrollY, [0, 1000], [0, 400]);
-  const logoScale = useTransform(scrollY, [0, 1000], [1, 15]);
+  const logoScale = useTransform(scrollY, [0, 1000], [1, 8]);
   const logoRotate = useTransform(scrollY, [0, 1000], [0, 90]);
   const logoOpacity = useTransform(scrollY, [0, 500, 1000], [1, 0.4, 0]);
-  const logoBlur = useTransform(scrollY, [0, 800], ["blur(0px)", "blur(20px)"]);
 
   const heroY = useTransform(scrollY, [0, 500], [0, -150]);
   const heroScale = useTransform(scrollY, [0, 500], [1, 0.75]);
@@ -145,11 +144,6 @@ export default function Home() {
 
         {/* ── NAV ── */}
         <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-xl">
-          {/* Scroll Progress Bar */}
-          <motion.div 
-            className="absolute bottom-[-1px] left-0 h-[1px] bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 opacity-80 z-50 origin-left shadow-[0_0_10px_rgba(6,182,212,0.5)]" 
-            style={{ width: "100%", scaleX: scrollYProgress }} 
-          />
           <div className="max-w-5xl mx-auto px-6 h-[80px] flex items-center justify-between">
             <div className="flex items-center gap-3 group">
               <img src={clubLogo} alt="Logo" className="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
@@ -189,7 +183,7 @@ export default function Home() {
                       scale: logoScale, 
                       rotate: logoRotate, 
                       opacity: logoOpacity,
-                      filter: logoBlur 
+                      willChange: "transform, opacity"
                     }}
                   >
                     <div className="absolute inset-0 rounded-full blur-[40px] bg-gradient-to-tr from-cyan-500/20 to-blue-600/20 scale-125" />
@@ -207,7 +201,8 @@ export default function Home() {
                       y: heroY, 
                       scale: heroScale, 
                       opacity: heroOpacity, 
-                      rotateX: heroRotateX 
+                      rotateX: heroRotateX,
+                      willChange: "transform, opacity"
                     }}
                   >
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md mb-7 text-sm font-semibold border border-cyan-500/30 text-cyan-300 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-sm">
@@ -224,7 +219,7 @@ export default function Home() {
               </div>
 
               {/* Sweeping Glass Content Layer */}
-              <div className="relative z-20 w-full bg-slate-950/70 backdrop-blur-3xl border-t border-cyan-500/20 shadow-[0_-30px_80px_rgba(6,182,212,0.15)] rounded-t-[40px] pt-20 pb-24 -mt-[40vh] min-h-screen">
+              <div className="relative z-20 w-full bg-slate-950/70 backdrop-blur-lg border-t border-cyan-500/20 shadow-[0_-30px_80px_rgba(6,182,212,0.15)] rounded-t-[40px] pt-20 pb-24 -mt-[40vh] min-h-screen">
                 <div className="max-w-5xl mx-auto px-6 flex flex-col gap-16">
                   
                   {/* Stats */}
