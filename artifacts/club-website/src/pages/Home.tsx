@@ -102,12 +102,20 @@ export default function Home() {
   const yGlow2 = useTransform(scrollY, [0, 1000], [0, -200]);
   const yGlow3 = useTransform(scrollY, [0, 1000], [0, 150]);
   
-  const yHero = useTransform(scrollY, [0, 500], [0, 100]);
-  const opacityHero = useTransform(scrollY, [0, 400], [1, 0]);
-  const scaleHeroLogo = useTransform(scrollY, [0, 300], [1, 0.85]);
+  /* ─── Dramatic Hero Centerpiece Transforms ─── */
+  const logoY = useTransform(scrollY, [0, 1000], [0, 400]);
+  const logoScale = useTransform(scrollY, [0, 1000], [1, 15]);
+  const logoRotate = useTransform(scrollY, [0, 1000], [0, 90]);
+  const logoOpacity = useTransform(scrollY, [0, 500, 1000], [1, 0.4, 0]);
+  const logoBlur = useTransform(scrollY, [0, 800], ["blur(0px)", "blur(20px)"]);
+
+  const heroY = useTransform(scrollY, [0, 500], [0, -150]);
+  const heroScale = useTransform(scrollY, [0, 500], [1, 0.75]);
+  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const heroRotateX = useTransform(scrollY, [0, 500], [0, 35]);
 
   return (
-    <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden bg-background text-foreground selection:bg-cyan-500/30">
+    <div className="min-h-[100dvh] w-full flex flex-col relative overflow-clip bg-background text-foreground selection:bg-cyan-500/30">
       
       {/* Texture Layer - Parallax */}
       <motion.div 
@@ -150,7 +158,7 @@ export default function Home() {
               </span>
             </div>
 
-            <TabsList className="h-9 p-1 bg-slate-900 border border-white/10 rounded-lg shadow-inner">
+            <TabsList className="h-9 p-1 bg-slate-900 border border-white/10 rounded-lg shadow-inner hidden md:flex">
               {TABS.map(({ value, label }) => (
                 <TabsTrigger key={value} value={value}
                   className="px-4 h-7 rounded-md text-sm font-medium text-slate-400 transition-colors data-[state=active]:bg-slate-800 data-[state=active]:text-cyan-400 data-[state=active]:shadow-sm"
@@ -163,111 +171,142 @@ export default function Home() {
         </header>
 
         {/* ── CONTENT ── */}
-        <main className="flex-1 w-full max-w-5xl mx-auto px-6 py-16">
+        <main className="flex-1 w-full pb-16">
 
           {/* ── TAB: Overview ── */}
           <TabsContent value="overview" className="mt-0 outline-none">
-            <motion.div initial="hidden" animate="visible" variants={STAGGER} className="flex flex-col gap-16">
+            <div className="flex flex-col">
               
-              {/* Hero */}
-              <motion.div variants={FADE_UP} className="w-full">
-                <motion.div style={{ y: yHero, opacity: opacityHero }} className="flex flex-col items-center text-center mt-8 mb-4">
-                  <motion.div className="mb-6 relative" style={{ scale: scaleHeroLogo }}>
-                    <div className="absolute inset-0 rounded-full blur-2xl bg-cyan-500/20 scale-125" />
-                    <img src={clubLogo} alt="LAHS Game Dev Club Logo" className="w-32 h-auto object-contain relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]" />
+              {/* Sticky Hero Scroll Sequence */}
+              <div className="relative h-[180vh] w-full z-10" style={{ perspective: "1200px" }}>
+                <div className="sticky top-[15vh] w-full flex flex-col items-center justify-start pt-10 h-[85vh]">
+                  
+                  {/* The BIG Centerpiece Logo */}
+                  <motion.div 
+                    className="relative z-10 flex items-center justify-center pointer-events-none"
+                    style={{ 
+                      y: logoY, 
+                      scale: logoScale, 
+                      rotate: logoRotate, 
+                      opacity: logoOpacity,
+                      filter: logoBlur 
+                    }}
+                  >
+                    <div className="absolute inset-0 rounded-full blur-[40px] bg-gradient-to-tr from-cyan-500/20 to-blue-600/20 scale-125" />
+                    <img 
+                      src={clubLogo} 
+                      alt="LAHS Game Dev Club Logo" 
+                      className="w-32 sm:w-40 h-auto object-contain relative z-10 drop-shadow-[0_0_20px_rgba(6,182,212,0.4)]" 
+                    />
                   </motion.div>
 
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md mb-7 text-sm font-semibold border border-cyan-500/30 text-cyan-300 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-sm">
-                    <Star className="w-4 h-4 fill-cyan-400 text-cyan-400" />
-                    Los Altos High School
-                  </div>
-
-                  <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-slate-100 max-w-3xl leading-tight mb-2">
-                    Design, build, and ship <br className="hidden md:block" />
-                    <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(6,182,212,0.25)]">real games</span> together.
-                  </h1>
-                </motion.div>
-              </motion.div>
-
-              {/* Stats */}
-              <motion.div variants={FADE_UP} className="grid grid-cols-3 divide-x divide-slate-800/60 border border-slate-800/80 rounded-2xl bg-slate-900/60 backdrop-blur-md shadow-xl shadow-slate-950/50 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-emerald-500/5 pointer-events-none" />
-                {STATS.map(({ label, value, suffix }) => {
-                  const resolved =
-                    label === "Members" && liveMembers !== null ? liveMembers :
-                    label === "Meetings" && liveMeetings !== null ? liveMeetings :
-                    label === "Projects" && !projectsLoading ? projects.length :
-                    value;
-                  const sfx =
-                    (label === "Members" && liveMembers !== null) ||
-                    (label === "Meetings" && liveMeetings !== null) ||
-                    (label === "Projects" && !projectsLoading)
-                      ? "" : suffix;
-                  const isLoading =
-                    (label === "Members" && membersLoading) ||
-                    (label === "Meetings" && meetingsLoading) ||
-                    (label === "Projects" && projectsLoading);
-                    
-                  return (
-                    <div key={label} className="flex flex-col items-center justify-center p-8 text-center relative z-10">
-                      <div className="text-3xl md:text-5xl font-bold bg-gradient-to-br from-white to-cyan-200 bg-clip-text text-transparent tracking-tight mb-2 drop-shadow-sm">
-                        {isLoading ? <span className="text-slate-600">--</span> : <AnimatedCounter target={resolved} suffix={sfx} />}
-                      </div>
-                      <span className="text-sm font-semibold text-slate-400 uppercase tracking-wider">{label}</span>
+                  {/* The Hero Text Block */}
+                  <motion.div 
+                    className="relative z-0 flex flex-col items-center text-center origin-bottom mt-10 px-6"
+                    style={{ 
+                      y: heroY, 
+                      scale: heroScale, 
+                      opacity: heroOpacity, 
+                      rotateX: heroRotateX 
+                    }}
+                  >
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md mb-7 text-sm font-semibold border border-cyan-500/30 text-cyan-300 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-sm">
+                      <Star className="w-4 h-4 fill-cyan-400 text-cyan-400" />
+                      Los Altos High School
                     </div>
-                  );
-                })}
-              </motion.div>
 
-              {/* Bento grid */}
-              <motion.div variants={STAGGER} className="grid md:grid-cols-5 gap-4">
-                <motion.div variants={FADE_UP} className="md:col-span-3 rounded-2xl p-8 lg:p-10 flex flex-col justify-between gap-8 border border-slate-800 bg-gradient-to-br from-slate-900/80 to-slate-900/40 shadow-xl group hover:border-blue-500/20 transition-colors">
-                  <div>
-                    <h2 className="text-2xl font-bold text-slate-100 mb-4 group-hover:text-blue-50 transition-colors">
-                      Built on collaborative projects.
-                    </h2>
-                    <p className="text-slate-400 leading-relaxed max-w-lg text-lg">
-                      A student-run club teaching game development through Unity and other platforms. Whether you're a seasoned coder, artist, or total beginner — there's a place for you.
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-4">
-                    <Button size="lg" asChild className="h-12 px-6 rounded-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-cyan-900/30 transition-all border-0 hover:scale-105 active:scale-100">
-                      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZ7ct-635WZNLJ_obGYIBTKvfLGigRHJzwLJUQPCMtf7GCpQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
-                        Join the Club <ArrowRight className="ml-2 w-4 h-4" />
-                      </a>
-                    </Button>
-                    <Button size="lg" variant="outline" asChild className="h-12 px-6 rounded-lg font-semibold border-slate-700 bg-slate-800/50 hover:bg-slate-700 hover:text-white transition-colors">
-                      <a href="https://www.instagram.com/lahs_game_dev_club/" target="_blank" rel="noopener noreferrer" className="text-slate-300">
-                        <SiInstagram className="mr-2 w-4 h-4 text-pink-400" />
-                        @lahs_game_dev_club
-                      </a>
-                    </Button>
-                  </div>
-                </motion.div>
+                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-slate-100 max-w-4xl leading-[1.1] mb-6 drop-shadow-xl">
+                      Design, build, and ship <br className="hidden md:block" />
+                      <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(6,182,212,0.25)]">real games</span> together.
+                    </h1>
+                  </motion.div>
+                </div>
+              </div>
 
-                <motion.div variants={FADE_UP} className="md:col-span-2 flex flex-col gap-4">
-                  {INFO_ROWS.map(({ icon, label, sub }) => (
-                    <div key={sub} className="flex-1 rounded-2xl p-6 flex items-center gap-5 border border-slate-800 bg-slate-900/40 hover:bg-slate-800/80 hover:border-cyan-500/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all group cursor-default">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 text-cyan-400 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:scale-110 group-hover:text-cyan-300 transition-all">
-                        {icon}
-                      </div>
+              {/* Sweeping Glass Content Layer */}
+              <div className="relative z-20 w-full bg-slate-950/70 backdrop-blur-3xl border-t border-cyan-500/20 shadow-[0_-30px_80px_rgba(6,182,212,0.15)] rounded-t-[40px] pt-20 pb-24 -mt-[40vh] min-h-screen">
+                <div className="max-w-5xl mx-auto px-6 flex flex-col gap-16">
+                  
+                  {/* Stats */}
+                  <motion.div variants={FADE_UP} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="grid grid-cols-3 divide-x divide-slate-800/60 border border-slate-800/80 rounded-2xl bg-slate-900/60 backdrop-blur-md shadow-xl shadow-slate-950/50 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-emerald-500/5 pointer-events-none" />
+                    {STATS.map(({ label, value, suffix }) => {
+                      const resolved =
+                        label === "Members" && liveMembers !== null ? liveMembers :
+                        label === "Meetings" && liveMeetings !== null ? liveMeetings :
+                        label === "Projects" && !projectsLoading ? projects.length :
+                        value;
+                      const sfx =
+                        (label === "Members" && liveMembers !== null) ||
+                        (label === "Meetings" && liveMeetings !== null) ||
+                        (label === "Projects" && !projectsLoading)
+                          ? "" : suffix;
+                      const isLoading =
+                        (label === "Members" && membersLoading) ||
+                        (label === "Meetings" && meetingsLoading) ||
+                        (label === "Projects" && projectsLoading);
+                        
+                      return (
+                        <div key={label} className="flex flex-col items-center justify-center p-8 text-center relative z-10">
+                          <div className="text-3xl md:text-5xl font-bold bg-gradient-to-br from-white to-cyan-200 bg-clip-text text-transparent tracking-tight mb-2 drop-shadow-sm">
+                            {isLoading ? <span className="text-slate-600">--</span> : <AnimatedCounter target={resolved} suffix={sfx} />}
+                          </div>
+                          <span className="text-sm font-semibold text-slate-400 uppercase tracking-wider">{label}</span>
+                        </div>
+                      );
+                    })}
+                  </motion.div>
+
+                  {/* Bento grid */}
+                  <motion.div variants={STAGGER} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="grid md:grid-cols-1 lg:grid-cols-5 gap-4">
+                    <motion.div variants={FADE_UP} className="lg:col-span-3 rounded-2xl p-8 lg:p-10 flex flex-col justify-between gap-8 border border-slate-800 bg-gradient-to-br from-slate-900/80 to-slate-900/40 shadow-xl group hover:border-blue-500/20 transition-colors">
                       <div>
-                        <p className="text-xs font-semibold text-cyan-500/70 mb-1 uppercase tracking-wider group-hover:text-cyan-400/90 transition-colors">{sub}</p>
-                        <p className="text-slate-200 font-medium group-hover:text-white transition-colors">{label}</p>
+                        <h2 className="text-2xl font-bold text-slate-100 mb-4 group-hover:text-blue-50 transition-colors">
+                          Built on collaborative projects.
+                        </h2>
+                        <p className="text-slate-400 leading-relaxed max-w-lg text-lg">
+                          A student-run club teaching game development through Unity and other platforms. Whether you're a seasoned coder, artist, or total beginner — there's a place for you.
+                        </p>
                       </div>
-                    </div>
-                  ))}
-                </motion.div>
-              </motion.div>
-              
-            </motion.div>
+                      <div className="flex flex-wrap gap-4">
+                        <Button size="lg" asChild className="h-12 px-6 rounded-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-cyan-900/30 transition-all border-0 hover:scale-105 active:scale-100">
+                          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZ7ct-635WZNLJ_obGYIBTKvfLGigRHJzwLJUQPCMtf7GCpQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
+                            Join the Club <ArrowRight className="ml-2 w-4 h-4" />
+                          </a>
+                        </Button>
+                        <Button size="lg" variant="outline" asChild className="h-12 px-6 rounded-lg font-semibold border-slate-700 bg-slate-800/50 hover:bg-slate-700 hover:text-white transition-colors">
+                          <a href="https://www.instagram.com/lahs_game_dev_club/" target="_blank" rel="noopener noreferrer" className="text-slate-300">
+                            <SiInstagram className="mr-2 w-4 h-4 text-pink-400" />
+                            @lahs_game_dev_club
+                          </a>
+                        </Button>
+                      </div>
+                    </motion.div>
+
+                    <motion.div variants={FADE_UP} className="lg:col-span-2 flex flex-col gap-4">
+                      {INFO_ROWS.map(({ icon, label, sub }) => (
+                        <div key={sub} className="flex-1 rounded-2xl p-6 flex items-center gap-5 border border-slate-800 bg-slate-900/40 hover:bg-slate-800/80 hover:border-cyan-500/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all group cursor-default">
+                          <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 text-cyan-400 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:scale-110 group-hover:text-cyan-300 transition-all">
+                            {icon}
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold text-cyan-500/70 mb-1 uppercase tracking-wider group-hover:text-cyan-400/90 transition-colors">{sub}</p>
+                            <p className="text-slate-200 font-medium group-hover:text-white transition-colors">{label}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
           </TabsContent>
 
           {/* ── TAB: About Us ── */}
-          <TabsContent value="about" className="mt-0 outline-none">
+          <TabsContent value="about" className="mt-0 outline-none max-w-5xl mx-auto px-6 pt-12">
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="flex flex-col gap-12 pt-8">
               <motion.div variants={FADE_UP} className="w-full">
-                <motion.div style={{ y: yHero, opacity: opacityHero }} className="max-w-2xl">
+                <motion.div className="max-w-2xl">
                   <h2 className="text-3xl font-bold text-slate-100 mb-3">Leadership</h2>
                   <p className="text-slate-400 text-lg">The students running the LAHS Game Dev Club.</p>
                 </motion.div>
@@ -328,11 +367,11 @@ export default function Home() {
           </TabsContent>
 
           {/* ── TAB: New Members ── */}
-          <TabsContent value="newmembers" className="mt-0 outline-none">
+          <TabsContent value="newmembers" className="mt-0 outline-none max-w-5xl mx-auto px-6 pt-12">
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="flex flex-col gap-12 pt-8">
 
               <motion.div variants={FADE_UP} className="w-full">
-                <motion.div style={{ y: yHero, opacity: opacityHero }} className="max-w-2xl">
+                <motion.div className="max-w-2xl">
                   <h2 className="text-3xl font-bold text-slate-100 mb-3">Get Started</h2>
                   <p className="text-slate-400 text-lg">Everything you need to join the club, set up Unity, and dive into your first project.</p>
                 </motion.div>
@@ -403,11 +442,11 @@ export default function Home() {
           </TabsContent>
 
           {/* ── TAB: Projects ── */}
-          <TabsContent value="projects" className="mt-0 outline-none">
+          <TabsContent value="projects" className="mt-0 outline-none max-w-5xl mx-auto px-6 pt-12">
             <motion.div initial="hidden" animate="visible" variants={STAGGER} className="flex flex-col gap-12 pt-8">
 
               <motion.div variants={FADE_UP} className="w-full">
-                <motion.div style={{ y: yHero, opacity: opacityHero }} className="max-w-2xl">
+                <motion.div className="max-w-2xl">
                   <h2 className="text-3xl font-bold text-slate-100 mb-3">Projects</h2>
                   <p className="text-slate-400 text-lg">Games, prototypes, and art built by our members.</p>
                 </motion.div>
