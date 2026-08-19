@@ -100,6 +100,7 @@ export default function Home() {
   const yBg = useTransform(scrollY, [0, 1000], [0, 200]);
   const yGlow1 = useTransform(scrollY, [0, 1000], [0, 300]);
   const yGlow2 = useTransform(scrollY, [0, 1000], [0, -200]);
+  const yGlow3 = useTransform(scrollY, [0, 1000], [0, 150]);
   
   const yHero = useTransform(scrollY, [0, 500], [0, 100]);
   const opacityHero = useTransform(scrollY, [0, 400], [1, 0]);
@@ -117,11 +118,15 @@ export default function Home() {
       {/* Ambient Parallax Glows */}
       <motion.div 
         className="absolute -top-[300px] -left-[200px] w-[800px] h-[800px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 60%)", y: yGlow1 }}
+        style={{ background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 60%)", y: yGlow1 }}
       />
       <motion.div 
         className="absolute top-[30vh] -right-[200px] w-[800px] h-[800px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.04) 0%, transparent 60%)", y: yGlow2 }}
+        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 60%)", y: yGlow2 }}
+      />
+      <motion.div 
+        className="absolute top-[60vh] left-[20vw] w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 60%)", y: yGlow3 }}
       />
 
       <Tabs 
@@ -131,24 +136,24 @@ export default function Home() {
       >
 
         {/* ── NAV ── */}
-        <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
+        <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-xl">
           {/* Scroll Progress Bar */}
           <motion.div 
-            className="absolute bottom-[-1px] left-0 h-[1px] bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 opacity-80 z-50 origin-left" 
+            className="absolute bottom-[-1px] left-0 h-[1px] bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 opacity-80 z-50 origin-left shadow-[0_0_10px_rgba(6,182,212,0.5)]" 
             style={{ width: "100%", scaleX: scrollYProgress }} 
           />
           <div className="max-w-5xl mx-auto px-6 h-[80px] flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src={clubLogo} alt="Logo" className="w-10 h-10 object-contain" />
+            <div className="flex items-center gap-3 group">
+              <img src={clubLogo} alt="Logo" className="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
               <span className="font-bold text-lg tracking-tight">
-                LAHS <span className="text-cyan-400">Game Dev</span>
+                LAHS <span className="text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]">Game Dev</span>
               </span>
             </div>
 
-            <TabsList className="h-9 p-1 bg-slate-900 border border-white/10 rounded-lg">
+            <TabsList className="h-9 p-1 bg-slate-900 border border-white/10 rounded-lg shadow-inner">
               {TABS.map(({ value, label }) => (
                 <TabsTrigger key={value} value={value}
-                  className="px-4 h-7 rounded-md text-sm font-medium text-slate-400 transition-colors data-[state=active]:bg-slate-800 data-[state=active]:text-cyan-400"
+                  className="px-4 h-7 rounded-md text-sm font-medium text-slate-400 transition-colors data-[state=active]:bg-slate-800 data-[state=active]:text-cyan-400 data-[state=active]:shadow-sm"
                 >
                   {label}
                 </TabsTrigger>
@@ -168,24 +173,25 @@ export default function Home() {
               <motion.div variants={FADE_UP} className="w-full">
                 <motion.div style={{ y: yHero, opacity: opacityHero }} className="flex flex-col items-center text-center mt-8 mb-4">
                   <motion.div className="mb-6 relative" style={{ scale: scaleHeroLogo }}>
-                    <div className="absolute inset-0 rounded-full blur-2xl bg-cyan-500/10 scale-110" />
-                    <img src={clubLogo} alt="LAHS Game Dev Club Logo" className="w-32 h-auto object-contain relative z-10" />
+                    <div className="absolute inset-0 rounded-full blur-2xl bg-cyan-500/20 scale-125" />
+                    <img src={clubLogo} alt="LAHS Game Dev Club Logo" className="w-32 h-auto object-contain relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]" />
                   </motion.div>
 
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md mb-6 text-sm font-medium border border-cyan-500/20 text-cyan-400 bg-cyan-500/10">
-                    <Star className="w-4 h-4 fill-cyan-400" />
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md mb-7 text-sm font-semibold border border-cyan-500/30 text-cyan-300 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-sm">
+                    <Star className="w-4 h-4 fill-cyan-400 text-cyan-400" />
                     Los Altos High School
                   </div>
 
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-100 max-w-3xl leading-tight">
+                  <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-slate-100 max-w-3xl leading-tight mb-2">
                     Design, build, and ship <br className="hidden md:block" />
-                    <span className="text-cyan-400">real games</span> together.
+                    <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(6,182,212,0.25)]">real games</span> together.
                   </h1>
                 </motion.div>
               </motion.div>
 
               {/* Stats */}
-              <motion.div variants={FADE_UP} className="grid grid-cols-3 divide-x divide-white/10 border border-white/10 rounded-2xl bg-slate-900/50 backdrop-blur-sm overflow-hidden">
+              <motion.div variants={FADE_UP} className="grid grid-cols-3 divide-x divide-slate-800/60 border border-slate-800/80 rounded-2xl bg-slate-900/60 backdrop-blur-md shadow-xl shadow-slate-950/50 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-emerald-500/5 pointer-events-none" />
                 {STATS.map(({ label, value, suffix }) => {
                   const resolved =
                     label === "Members" && liveMembers !== null ? liveMembers :
@@ -203,11 +209,11 @@ export default function Home() {
                     (label === "Projects" && projectsLoading);
                     
                   return (
-                    <div key={label} className="flex flex-col items-center justify-center p-8 text-center">
-                      <div className="text-3xl md:text-5xl font-bold text-slate-100 tracking-tight mb-2">
+                    <div key={label} className="flex flex-col items-center justify-center p-8 text-center relative z-10">
+                      <div className="text-3xl md:text-5xl font-bold bg-gradient-to-br from-white to-cyan-200 bg-clip-text text-transparent tracking-tight mb-2 drop-shadow-sm">
                         {isLoading ? <span className="text-slate-600">--</span> : <AnimatedCounter target={resolved} suffix={sfx} />}
                       </div>
-                      <span className="text-sm font-medium text-slate-400">{label}</span>
+                      <span className="text-sm font-semibold text-slate-400 uppercase tracking-wider">{label}</span>
                     </div>
                   );
                 })}
@@ -215,9 +221,9 @@ export default function Home() {
 
               {/* Bento grid */}
               <motion.div variants={STAGGER} className="grid md:grid-cols-5 gap-4">
-                <motion.div variants={FADE_UP} className="md:col-span-3 rounded-2xl p-8 lg:p-10 flex flex-col justify-between gap-8 border border-white/10 bg-slate-900/50">
+                <motion.div variants={FADE_UP} className="md:col-span-3 rounded-2xl p-8 lg:p-10 flex flex-col justify-between gap-8 border border-slate-800 bg-gradient-to-br from-slate-900/80 to-slate-900/40 shadow-xl group hover:border-blue-500/20 transition-colors">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-100 mb-4">
+                    <h2 className="text-2xl font-bold text-slate-100 mb-4 group-hover:text-blue-50 transition-colors">
                       Built on collaborative projects.
                     </h2>
                     <p className="text-slate-400 leading-relaxed max-w-lg text-lg">
@@ -225,14 +231,14 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-4">
-                    <Button size="lg" asChild className="h-12 px-6 rounded-lg font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20 transition-colors border-0">
+                    <Button size="lg" asChild className="h-12 px-6 rounded-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-cyan-900/30 transition-all border-0 hover:scale-105 active:scale-100">
                       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZ7ct-635WZNLJ_obGYIBTKvfLGigRHJzwLJUQPCMtf7GCpQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
                         Join the Club <ArrowRight className="ml-2 w-4 h-4" />
                       </a>
                     </Button>
-                    <Button size="lg" variant="outline" asChild className="h-12 px-6 rounded-lg font-semibold border-white/10 hover:bg-white/5 transition-colors">
+                    <Button size="lg" variant="outline" asChild className="h-12 px-6 rounded-lg font-semibold border-slate-700 bg-slate-800/50 hover:bg-slate-700 hover:text-white transition-colors">
                       <a href="https://www.instagram.com/lahs_game_dev_club/" target="_blank" rel="noopener noreferrer" className="text-slate-300">
-                        <SiInstagram className="mr-2 w-4 h-4 text-slate-300" />
+                        <SiInstagram className="mr-2 w-4 h-4 text-pink-400" />
                         @lahs_game_dev_club
                       </a>
                     </Button>
@@ -241,13 +247,13 @@ export default function Home() {
 
                 <motion.div variants={FADE_UP} className="md:col-span-2 flex flex-col gap-4">
                   {INFO_ROWS.map(({ icon, label, sub }) => (
-                    <div key={sub} className="flex-1 rounded-2xl p-6 flex items-center gap-5 border border-white/10 bg-slate-900/50 hover:bg-slate-900/80 transition-colors">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-cyan-400 shrink-0">
+                    <div key={sub} className="flex-1 rounded-2xl p-6 flex items-center gap-5 border border-slate-800 bg-slate-900/40 hover:bg-slate-800/80 hover:border-cyan-500/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)] transition-all group cursor-default">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 text-cyan-400 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:scale-110 group-hover:text-cyan-300 transition-all">
                         {icon}
                       </div>
                       <div>
-                        <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">{sub}</p>
-                        <p className="text-slate-200 font-medium">{label}</p>
+                        <p className="text-xs font-semibold text-cyan-500/70 mb-1 uppercase tracking-wider group-hover:text-cyan-400/90 transition-colors">{sub}</p>
+                        <p className="text-slate-200 font-medium group-hover:text-white transition-colors">{label}</p>
                       </div>
                     </div>
                   ))}
@@ -280,14 +286,14 @@ export default function Home() {
                     ))
                   : (liveLeadership ?? MEMBERS).map((m, i) => (
                       <motion.div key={i} variants={FADE_UP}
-                        className="rounded-2xl p-6 flex flex-col items-center text-center gap-5 border border-white/10 bg-slate-900/50 hover:bg-slate-900/80 transition-colors"
+                        className="rounded-2xl p-6 flex flex-col items-center text-center gap-5 border border-slate-800 bg-slate-900/40 hover:bg-slate-800/80 hover:border-blue-500/30 hover:shadow-[0_0_25px_rgba(37,99,235,0.15)] transition-all group cursor-default"
                       >
-                        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-slate-800 text-cyan-400 font-bold text-xl border border-white/5">
+                        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 text-blue-400 font-bold text-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:scale-110 group-hover:text-blue-300 group-hover:border-blue-500/50 transition-all">
                           {m.initials}
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">{m.role}</p>
-                          <p className="text-slate-200 font-semibold">{m.name}</p>
+                          <p className="text-xs font-semibold text-blue-500/70 mb-1 uppercase tracking-wider group-hover:text-blue-400/90 transition-colors">{m.role}</p>
+                          <p className="text-slate-200 font-bold group-hover:text-white transition-colors">{m.name}</p>
                         </div>
                       </motion.div>
                     ))
@@ -295,24 +301,25 @@ export default function Home() {
               </div>
 
               <motion.div variants={FADE_UP}>
-                <div className="rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/10 bg-slate-900/50 mt-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-100 mb-2">General Members</h3>
+                <div className="rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-blue-500/20 bg-gradient-to-r from-blue-900/20 to-emerald-900/10 shadow-[0_0_30px_rgba(37,99,235,0.1)] mt-4 relative overflow-hidden group cursor-default">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-400/10 via-transparent to-transparent pointer-events-none group-hover:from-blue-400/15 transition-colors" />
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-bold text-slate-100 mb-2 group-hover:text-white transition-colors">General Members</h3>
                     <p className="text-slate-400 max-w-lg">A growing community of developers, designers, writers, and artists building games together.</p>
                   </div>
-                  <div className="flex items-center gap-4 shrink-0 bg-slate-950 p-4 rounded-xl border border-white/5">
+                  <div className="flex items-center gap-4 shrink-0 bg-slate-950/50 p-4 rounded-xl border border-white/10 backdrop-blur-md relative z-10 group-hover:border-emerald-500/20 transition-colors">
                     <div className="flex -space-x-3">
                       {Array.from({ length: 5 }).map((_,i) => (
-                        <div key={i} className="w-10 h-10 rounded-full border-2 border-slate-950 bg-slate-800 flex items-center justify-center">
-                          <Users className="w-4 h-4 text-slate-500" />
+                        <div key={i} className="w-10 h-10 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center">
+                          <Users className="w-4 h-4 text-emerald-400/70" />
                         </div>
                       ))}
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-2xl font-bold text-slate-100 leading-none">
+                      <span className="text-2xl font-bold bg-gradient-to-br from-white to-emerald-200 bg-clip-text text-transparent leading-none mb-1">
                         {liveMembers !== null ? liveMembers : "28"}
                       </span>
-                      <span className="text-xs font-medium text-slate-500">Active</span>
+                      <span className="text-xs font-semibold text-emerald-500/80 uppercase tracking-wider">Active</span>
                     </div>
                   </div>
                 </div>
@@ -332,12 +339,13 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={FADE_UP}>
-                <div className="rounded-2xl p-8 lg:p-10 flex flex-col sm:flex-row items-center justify-between gap-8 border border-blue-500/20 bg-blue-500/5">
-                  <div>
-                    <h3 className="text-2xl font-bold text-slate-100 mb-2">Join the Club</h3>
-                    <p className="text-slate-400 text-lg max-w-xl">Fill out the official sign-up form so we can add you to the roster and keep you in the loop.</p>
+                <div className="rounded-2xl p-8 lg:p-10 flex flex-col sm:flex-row items-center justify-between gap-8 border border-cyan-500/30 bg-gradient-to-r from-blue-600/10 to-cyan-500/10 shadow-[0_0_30px_rgba(6,182,212,0.15)] relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-cyan-400/15 via-transparent to-transparent pointer-events-none group-hover:from-cyan-400/20 transition-colors" />
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-bold text-white mb-2">Join the Club</h3>
+                    <p className="text-cyan-100/70 text-lg max-w-xl">Fill out the official sign-up form so we can add you to the roster and keep you in the loop.</p>
                   </div>
-                  <Button size="lg" asChild className="h-12 px-8 rounded-lg font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20 transition-colors shrink-0 border-0">
+                  <Button size="lg" asChild className="h-12 px-8 rounded-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-lg shadow-cyan-900/30 transition-all border-0 hover:scale-105 active:scale-100 shrink-0 relative z-10">
                     <a href="https://forms.gle/wdQWLgah5MKrmG2x8" target="_blank" rel="noopener noreferrer">
                       Sign Up Form <ArrowRight className="ml-2 w-4 h-4" />
                     </a>
@@ -349,17 +357,17 @@ export default function Home() {
                 {RESOURCES.map((r) => (
                   <motion.a key={r.title} variants={FADE_UP}
                     href={r.href} target="_blank" rel="noopener noreferrer"
-                    className="group rounded-2xl p-8 flex flex-col gap-6 border border-white/10 bg-slate-900/50 hover:bg-slate-900/80 transition-colors"
+                    className="group rounded-2xl p-8 flex flex-col gap-6 border border-slate-800 bg-slate-900/40 hover:bg-slate-800/80 hover:border-cyan-500/40 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] transition-all"
                   >
                     <div className="flex items-start justify-between">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 text-cyan-400 shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:scale-110 group-hover:text-cyan-300 group-hover:border-cyan-500/50 transition-all">
                         {r.icon}
                       </div>
                       <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" />
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-slate-500 mb-2 uppercase tracking-wider">{r.label}</p>
-                      <p className="text-slate-200 font-semibold mb-2">{r.title}</p>
+                      <p className="text-xs font-semibold text-cyan-500/70 mb-2 uppercase tracking-wider group-hover:text-cyan-400/90 transition-colors">{r.label}</p>
+                      <p className="text-slate-200 font-bold mb-2 group-hover:text-white transition-colors">{r.title}</p>
                       <p className="text-slate-400 leading-relaxed">{r.desc}</p>
                     </div>
                   </motion.a>
@@ -367,15 +375,15 @@ export default function Home() {
               </div>
 
               <motion.div variants={FADE_UP}>
-                <div className="rounded-2xl overflow-hidden border border-white/10 bg-slate-900/50">
-                  <div className="px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5">
+                <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 shadow-xl group">
+                  <div className="px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 bg-slate-900/80 group-hover:bg-slate-900 transition-colors">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-100">Tutorial Example</h3>
+                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-white transition-colors">Tutorial Example</h3>
                       <p className="text-slate-400 text-sm">Play a Unity tutorial game right in your browser.</p>
                     </div>
                     <a href="https://play.unity.com/api/v1/games/game/7bdd8f13-edc8-456b-b49e-d539af8efe38/build/latest/frame"
                       target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
+                      className="flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
                     >
                       Open full screen <ExternalLink className="w-4 h-4" />
                     </a>
@@ -383,7 +391,7 @@ export default function Home() {
                   <div className="w-full bg-slate-950" style={{ aspectRatio: "16/9" }}>
                     <iframe
                       src="https://play.unity.com/api/v1/games/game/7bdd8f13-edc8-456b-b49e-d539af8efe38/build/latest/frame"
-                      className="w-full h-full border-0 opacity-90 hover:opacity-100 transition-opacity"
+                      className="w-full h-full border-0 opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                       allow="fullscreen"
                       title="Unity Tutorial Example"
                     />
@@ -409,7 +417,7 @@ export default function Home() {
               {projectsLoading && projects.length === 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="rounded-2xl p-6 border border-white/5 bg-slate-900/30 animate-pulse">
+                    <div key={i} className="rounded-2xl p-6 border border-slate-800 bg-slate-900/40 animate-pulse">
                       <div className="flex items-center gap-4 mb-6">
                         <div className="w-12 h-12 rounded-xl bg-slate-800" />
                         <div className="h-4 w-24 rounded bg-slate-700" />
@@ -432,26 +440,26 @@ export default function Home() {
                       <motion.div key={i} variants={FADE_UP}>
                         <CardEl
                           {...(hasLink ? { href: p.link, target: "_blank", rel: "noopener noreferrer" } : {})}
-                          className={`group rounded-2xl p-6 flex flex-col gap-5 border border-white/10 bg-slate-900/50 transition-colors ${hasLink ? 'hover:bg-slate-900/80 block cursor-pointer' : ''}`}
+                          className={`group rounded-2xl p-6 flex flex-col gap-5 border border-slate-800 bg-slate-900/40 transition-all ${hasLink ? 'hover:bg-slate-800/80 hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] block cursor-pointer' : ''}`}
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex items-center gap-4 min-w-0">
-                              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-cyan-400 font-bold shrink-0">
+                              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 text-emerald-400 font-bold shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:scale-110 group-hover:text-emerald-300 group-hover:border-emerald-500/50 transition-all">
                                 {initials}
                               </div>
                               <div className="min-w-0">
-                                <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Creator</p>
-                                <p className="text-slate-200 font-semibold truncate">{p.creator}</p>
+                                <p className="text-xs font-semibold text-emerald-500/70 mb-1 uppercase tracking-wider group-hover:text-emerald-400/90 transition-colors">Creator</p>
+                                <p className="text-slate-200 font-bold truncate group-hover:text-white transition-colors">{p.creator}</p>
                               </div>
                             </div>
-                            {hasLink && <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors shrink-0 mt-1" />}
+                            {hasLink && <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-emerald-400 transition-colors shrink-0 mt-1" />}
                           </div>
                           <div>
                             {p.title && (
-                              <p className="text-slate-300 font-medium mb-1">{p.title}</p>
+                              <p className="text-slate-300 font-semibold mb-1 group-hover:text-slate-200 transition-colors">{p.title}</p>
                             )}
                             {hasLink && (
-                              <p className="text-slate-500 text-sm truncate">{p.link}</p>
+                              <p className="text-slate-500 text-sm truncate group-hover:text-slate-400 transition-colors">{p.link}</p>
                             )}
                           </div>
                         </CardEl>
@@ -464,13 +472,14 @@ export default function Home() {
               {/* Empty state */}
               {!projectsLoading && projects.length === 0 && (
                 <motion.div variants={FADE_UP}
-                  className="flex flex-col items-center justify-center py-24 rounded-2xl text-center gap-6 border border-white/10 bg-slate-900/30"
+                  className="flex flex-col items-center justify-center py-24 rounded-2xl text-center gap-6 border border-slate-800 bg-slate-900/30 relative overflow-hidden group cursor-default"
                 >
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-slate-800 text-cyan-400">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-500/5 via-transparent to-transparent pointer-events-none group-hover:from-emerald-500/10 transition-colors" />
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 text-emerald-400 shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_0_20px_rgba(16,185,129,0.2)] relative z-10 group-hover:scale-110 group-hover:border-emerald-500/50 group-hover:text-emerald-300 transition-all">
                     <Gamepad2 className="w-8 h-8" />
                   </div>
-                  <div className="max-w-md">
-                    <h3 className="text-xl font-bold text-slate-200 mb-2">Projects coming soon</h3>
+                  <div className="max-w-md relative z-10">
+                    <h3 className="text-xl font-bold text-slate-200 mb-2 group-hover:text-white transition-colors">Projects coming soon</h3>
                     <p className="text-slate-400">Our first batch of games is in the works. Check back soon to see what we're building.</p>
                   </div>
                 </motion.div>
