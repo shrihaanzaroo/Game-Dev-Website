@@ -153,7 +153,7 @@ export default function Home() {
               className="flex flex-col items-center text-center mb-10"
             >
               <motion.div
-                className="-mb-36 -mt-20 relative flex items-center justify-center"
+                className="mb-4 relative flex items-center justify-center"
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
               >
@@ -166,7 +166,7 @@ export default function Home() {
                   animate={{ scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                 />
-                <img src={clubLogo} alt="LAHS Game Dev Club Logo" className="w-96 h-auto object-contain relative" />
+                <img src={clubLogo} alt="LAHS Game Dev Club Logo" className="w-40 md:w-48 h-auto object-contain relative" />
               </motion.div>
 
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold uppercase tracking-widest"
