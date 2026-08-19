@@ -8,7 +8,7 @@ import { useMemberCount } from "@/hooks/useMemberCount";
 import { useMeetingCount } from "@/hooks/useMeetingCount";
 import { useLeadership } from "@/hooks/useLeadership";
 import { useProjects } from "@/hooks/useProjects";
-import clubLogo from "@assets/gamedev_clean.png";
+import clubLogo from "@assets/new_logo_final.png";
 
 /* ─── Animation variants ─── */
 const FADE_UP = {
