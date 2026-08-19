@@ -79,7 +79,7 @@ const RESOURCES = [
 ];
 
 /* ─── Dot-grid SVG background ─── */
-const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1' cy='1' r='1' fill='%23fbbf24' fill-opacity='0.05'/%3E%3C/svg%3E")`;
+const DOT_GRID = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='1' cy='1' r='1' fill='%2306b6d4' fill-opacity='0.05'/%3E%3C/svg%3E")`;
 
 const TABS = [
   { value: "overview",   label: "Overview"    },
@@ -106,7 +106,7 @@ export default function Home() {
   const scaleHeroLogo = useTransform(scrollY, [0, 300], [1, 0.85]);
 
   return (
-    <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden bg-background text-foreground selection:bg-amber-500/30">
+    <div className="min-h-[100dvh] w-full flex flex-col relative overflow-hidden bg-background text-foreground selection:bg-cyan-500/30">
       
       {/* Texture Layer - Parallax */}
       <motion.div 
@@ -117,11 +117,11 @@ export default function Home() {
       {/* Ambient Parallax Glows */}
       <motion.div 
         className="absolute -top-[300px] -left-[200px] w-[800px] h-[800px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(245,158,11,0.05) 0%, transparent 60%)", y: yGlow1 }}
+        style={{ background: "radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 60%)", y: yGlow1 }}
       />
       <motion.div 
         className="absolute top-[30vh] -right-[200px] w-[800px] h-[800px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%)", y: yGlow2 }}
+        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.04) 0%, transparent 60%)", y: yGlow2 }}
       />
 
       <Tabs 
@@ -134,21 +134,21 @@ export default function Home() {
         <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
           {/* Scroll Progress Bar */}
           <motion.div 
-            className="absolute bottom-[-1px] left-0 h-[1px] bg-amber-500/60 z-50 origin-left" 
+            className="absolute bottom-[-1px] left-0 h-[1px] bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 opacity-80 z-50 origin-left" 
             style={{ width: "100%", scaleX: scrollYProgress }} 
           />
           <div className="max-w-5xl mx-auto px-6 h-[80px] flex items-center justify-between">
             <div className="flex items-center gap-3">
               <img src={clubLogo} alt="Logo" className="w-10 h-10 object-contain" />
               <span className="font-bold text-lg tracking-tight">
-                LAHS <span className="text-amber-400">Game Dev</span>
+                LAHS <span className="text-cyan-400">Game Dev</span>
               </span>
             </div>
 
             <TabsList className="h-9 p-1 bg-slate-900 border border-white/10 rounded-lg">
               {TABS.map(({ value, label }) => (
                 <TabsTrigger key={value} value={value}
-                  className="px-4 h-7 rounded-md text-sm font-medium text-slate-400 transition-colors data-[state=active]:bg-slate-800 data-[state=active]:text-amber-400"
+                  className="px-4 h-7 rounded-md text-sm font-medium text-slate-400 transition-colors data-[state=active]:bg-slate-800 data-[state=active]:text-cyan-400"
                 >
                   {label}
                 </TabsTrigger>
@@ -168,18 +168,18 @@ export default function Home() {
               <motion.div variants={FADE_UP} className="w-full">
                 <motion.div style={{ y: yHero, opacity: opacityHero }} className="flex flex-col items-center text-center mt-8 mb-4">
                   <motion.div className="mb-6 relative" style={{ scale: scaleHeroLogo }}>
-                    <div className="absolute inset-0 rounded-full blur-2xl bg-amber-500/10 scale-110" />
+                    <div className="absolute inset-0 rounded-full blur-2xl bg-cyan-500/10 scale-110" />
                     <img src={clubLogo} alt="LAHS Game Dev Club Logo" className="w-32 h-auto object-contain relative z-10" />
                   </motion.div>
 
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md mb-6 text-sm font-medium border border-amber-500/20 text-amber-400 bg-amber-500/10">
-                    <Star className="w-4 h-4 fill-amber-400" />
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md mb-6 text-sm font-medium border border-cyan-500/20 text-cyan-400 bg-cyan-500/10">
+                    <Star className="w-4 h-4 fill-cyan-400" />
                     Los Altos High School
                   </div>
 
                   <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-100 max-w-3xl leading-tight">
                     Design, build, and ship <br className="hidden md:block" />
-                    <span className="text-amber-400">real games</span> together.
+                    <span className="text-cyan-400">real games</span> together.
                   </h1>
                 </motion.div>
               </motion.div>
@@ -225,7 +225,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-4">
-                    <Button size="lg" asChild className="h-12 px-6 rounded-lg font-semibold bg-amber-500 hover:bg-amber-600 text-slate-950 transition-colors">
+                    <Button size="lg" asChild className="h-12 px-6 rounded-lg font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20 transition-colors border-0">
                       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdZ7ct-635WZNLJ_obGYIBTKvfLGigRHJzwLJUQPCMtf7GCpQ/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
                         Join the Club <ArrowRight className="ml-2 w-4 h-4" />
                       </a>
@@ -242,7 +242,7 @@ export default function Home() {
                 <motion.div variants={FADE_UP} className="md:col-span-2 flex flex-col gap-4">
                   {INFO_ROWS.map(({ icon, label, sub }) => (
                     <div key={sub} className="flex-1 rounded-2xl p-6 flex items-center gap-5 border border-white/10 bg-slate-900/50 hover:bg-slate-900/80 transition-colors">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-amber-400 shrink-0">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-cyan-400 shrink-0">
                         {icon}
                       </div>
                       <div>
@@ -282,7 +282,7 @@ export default function Home() {
                       <motion.div key={i} variants={FADE_UP}
                         className="rounded-2xl p-6 flex flex-col items-center text-center gap-5 border border-white/10 bg-slate-900/50 hover:bg-slate-900/80 transition-colors"
                       >
-                        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-slate-800 text-amber-400 font-bold text-xl border border-white/5">
+                        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-slate-800 text-cyan-400 font-bold text-xl border border-white/5">
                           {m.initials}
                         </div>
                         <div>
@@ -332,12 +332,12 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={FADE_UP}>
-                <div className="rounded-2xl p-8 lg:p-10 flex flex-col sm:flex-row items-center justify-between gap-8 border border-amber-500/20 bg-amber-500/5">
+                <div className="rounded-2xl p-8 lg:p-10 flex flex-col sm:flex-row items-center justify-between gap-8 border border-blue-500/20 bg-blue-500/5">
                   <div>
                     <h3 className="text-2xl font-bold text-slate-100 mb-2">Join the Club</h3>
                     <p className="text-slate-400 text-lg max-w-xl">Fill out the official sign-up form so we can add you to the roster and keep you in the loop.</p>
                   </div>
-                  <Button size="lg" asChild className="h-12 px-8 rounded-lg font-semibold bg-amber-500 hover:bg-amber-600 text-slate-950 transition-colors shrink-0">
+                  <Button size="lg" asChild className="h-12 px-8 rounded-lg font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20 transition-colors shrink-0 border-0">
                     <a href="https://forms.gle/wdQWLgah5MKrmG2x8" target="_blank" rel="noopener noreferrer">
                       Sign Up Form <ArrowRight className="ml-2 w-4 h-4" />
                     </a>
@@ -352,10 +352,10 @@ export default function Home() {
                     className="group rounded-2xl p-8 flex flex-col gap-6 border border-white/10 bg-slate-900/50 hover:bg-slate-900/80 transition-colors"
                   >
                     <div className="flex items-start justify-between">
-                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-amber-400 shrink-0 group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-cyan-400 shrink-0 group-hover:scale-110 transition-transform">
                         {r.icon}
                       </div>
-                      <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors" />
+                      <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors" />
                     </div>
                     <div>
                       <p className="text-xs font-medium text-slate-500 mb-2 uppercase tracking-wider">{r.label}</p>
@@ -375,7 +375,7 @@ export default function Home() {
                     </div>
                     <a href="https://play.unity.com/api/v1/games/game/7bdd8f13-edc8-456b-b49e-d539af8efe38/build/latest/frame"
                       target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors"
+                      className="flex items-center gap-2 text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
                     >
                       Open full screen <ExternalLink className="w-4 h-4" />
                     </a>
@@ -436,7 +436,7 @@ export default function Home() {
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex items-center gap-4 min-w-0">
-                              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-amber-400 font-bold shrink-0">
+                              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-slate-800 text-cyan-400 font-bold shrink-0">
                                 {initials}
                               </div>
                               <div className="min-w-0">
@@ -444,7 +444,7 @@ export default function Home() {
                                 <p className="text-slate-200 font-semibold truncate">{p.creator}</p>
                               </div>
                             </div>
-                            {hasLink && <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors shrink-0 mt-1" />}
+                            {hasLink && <ExternalLink className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 transition-colors shrink-0 mt-1" />}
                           </div>
                           <div>
                             {p.title && (
@@ -466,7 +466,7 @@ export default function Home() {
                 <motion.div variants={FADE_UP}
                   className="flex flex-col items-center justify-center py-24 rounded-2xl text-center gap-6 border border-white/10 bg-slate-900/30"
                 >
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-slate-800 text-amber-400">
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-slate-800 text-cyan-400">
                     <Gamepad2 className="w-8 h-8" />
                   </div>
                   <div className="max-w-md">
