@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "qFhP2-h-nt5Nxj5tLu-di"
@@ -12,3 +11,10 @@ id = "a7w3fmtmFF6uIMmJ5c7GR"
 uri = "file://artifacts/club-website/public/projects/club-website.png"
 type = "image"
 title = "Club website web development code editor thumbnail"
+
+[[outputs]]
+id = "Uattjo2c0tZkvX2hOz53n"
+uri = "file://artifacts/club-promo-video/public/audio/bg_music.mp3"
+type = "audio"
+title = "game club promo music"
+description = "Generated music: Driving electronic instrumental background music scoring a high-school game development club promo. Crisp modern synth arpeggios, warm electronic bass, restrained drum pulse at 118 B…"

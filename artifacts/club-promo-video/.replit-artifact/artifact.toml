@@ -1,0 +1,29 @@
+kind = "video"
+videoAspectRatio = "16:9"
+previewPath = "/club-promo-video/"
+title = "Game Dev Club Promo Video"
+description = "A short animated promo video for the LAHS Game Dev Club — showcasing the club's identity, weekly meetings, and member-built games in the site's dark blue/cyan/emerald style."
+version = "1.0.0"
+id = "artifacts/club-promo-video"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/club-promo-video/" ]
+localPort = 25877
+
+[services.development]
+run = "pnpm --filter @workspace/club-promo-video run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/club-promo-video", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/club-promo-video/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25877"
+BASE_PATH = "/club-promo-video/"
