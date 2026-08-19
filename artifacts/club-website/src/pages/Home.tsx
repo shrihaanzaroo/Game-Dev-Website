@@ -121,7 +121,7 @@ export default function Home() {
         >
           <div className="max-w-5xl mx-auto px-5 h-[100px] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <img src={clubLogo} alt="Logo" className="w-[192px] h-[192px] object-contain" />
+              <img src={clubLogo} alt="Logo" className="w-12 h-12 object-contain" />
               <span className="font-black text-base tracking-tight">
                 <span style={{ background: "linear-gradient(90deg,#2563eb,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Game Dev</span>
                 <span className="text-slate-700"> Club</span>
