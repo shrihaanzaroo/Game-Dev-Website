@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
-import { rm } from "node:fs/promises";
+import { rm, writeFile } from "node:fs/promises";
 
 // Plugins (e.g. 'esbuild-plugin-pino') may use `require` to resolve dependencies
 globalThis.require = createRequire(import.meta.url);
@@ -15,7 +15,10 @@ async function buildAll() {
   await rm(distDir, { recursive: true, force: true });
 
   await esbuild({
-    entryPoints: [path.resolve(artifactDir, "src/index.ts")],
+    entryPoints: [
+      path.resolve(artifactDir, "src/index.ts"),
+      path.resolve(artifactDir, "src/app.ts"),
+    ],
     platform: "node",
     bundle: true,
     format: "esm",
@@ -118,6 +121,16 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     `,
     },
   });
+
+  // Vercel's Node function builder trips over the "composite": true tsconfigs
+  // used by workspace libs (lib/db, lib/api-zod) when type-checking any file
+  // that imports from them. api/index.ts sidesteps this by importing the
+  // pre-built app.mjs bundle instead of the TypeScript source, so it needs a
+  // declaration file alongside it (esbuild doesn't emit one).
+  await writeFile(
+    path.resolve(distDir, "app.d.mts"),
+    `import type { Express } from "express";\ndeclare const app: Express;\nexport default app;\n`,
+  );
 }
 
 buildAll().catch((err) => {
